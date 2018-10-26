@@ -486,6 +486,14 @@ public String rowno;
 */
 public String so_shipmentsb;
 /**
+*srcbts（可持续化字段，可以远程传递值，但不能保存到数据库）
+*/
+public static final String SRCBTS="srcbts";
+/**
+*srcts（可持续化字段，可以远程传递值，但不能保存到数据库）
+*/
+public static final String SRCTS="srcts";
+/**
 *标识线
 */
 public String tagline;
@@ -2721,6 +2729,42 @@ return this.so_shipmentsb;
 */
 public void setSo_shipmentsb ( String so_shipmentsb) {
 this.so_shipmentsb=so_shipmentsb;
+ } 
+
+/** 
+* 获取srcbts（可持续化字段，可以远程传递值，但不能保存到数据库）
+*
+* @return srcbts
+*/
+public UFDateTime getSrcbts () {
+return (UFDateTime) this.getAttributeValue( ShipmentsBVO.SRCBTS);
+ } 
+
+/** 
+* 设置srcbts（可持续化字段，可以远程传递值，但不能保存到数据库）
+*
+* @param srcbts srcbts
+*/
+public void setSrcbts ( UFDateTime srcbts) {
+this.setAttributeValue( ShipmentsBVO.SRCBTS,srcbts);
+ } 
+
+/** 
+* 获取srcts（可持续化字段，可以远程传递值，但不能保存到数据库）
+*
+* @return srcts
+*/
+public UFDateTime getSrcts () {
+return (UFDateTime) this.getAttributeValue( ShipmentsBVO.SRCTS);
+ } 
+
+/** 
+* 设置srcts（可持续化字段，可以远程传递值，但不能保存到数据库）
+*
+* @param srcts srcts
+*/
+public void setSrcts ( UFDateTime srcts) {
+this.setAttributeValue( ShipmentsBVO.SRCTS,srcts);
  } 
 
 /** 

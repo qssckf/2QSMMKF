@@ -1,5 +1,6 @@
 package nc.bs.so.shipmentsinfo.ace.bp;
 
+import nc.bs.so.fq.maintain.rule.delete.RewriteBillDeleteRule;
 import nc.bs.so.shipmentsinfo.plugin.bpplugin.ShipmentsInfoPluginPoint;
 import nc.impl.pubapp.pattern.data.bill.template.DeleteBPTemplate;
 import nc.impl.pubapp.pattern.rule.IRule;
@@ -41,6 +42,7 @@ public class AceShipmentsInfoDeleteBP {
 		((nc.bs.pubapp.pub.rule.ReturnBillCodeRule)rule).setGroupItem("pk_group");
 		((nc.bs.pubapp.pub.rule.ReturnBillCodeRule)rule).setOrgItem("pk_org");
 				    				   				   
-		processer.addAfterRule(rule);		   				   
+		processer.addAfterRule(rule);		  
+		processer.addAfterRule(new RewriteBillDeleteRule());
 	}
 }

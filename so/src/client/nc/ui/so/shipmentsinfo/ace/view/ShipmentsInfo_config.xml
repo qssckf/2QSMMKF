@@ -483,7 +483,7 @@
 	</bean>
 	<!-- 222修改里面的类型为预订单的类型 -->
 	<bean name="transferLogicfor38" 
-		class="nc.ui.so.m30.billui.tranferbill.M30Ref38TRansferBillDataLogic">
+		class="nc.ui.so.shipmentsinfo.billui.action.FQ01Ref38TRansferBillDataLogic">
 		<property name="billForm" ref="billFormEditor" />
 	</bean>
 	<bean name="transferProcessorfor38" class="nc.ui.pubapp.billref.dest.TransferViewProcessor">

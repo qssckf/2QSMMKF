@@ -6,11 +6,13 @@ package nc.ui.so.shipmentsinfo.billui.action;
 ///*    */ import nc.ui.so.m30.billui.rule.MatchLargessRule;
 ///*    */ import nc.ui.so.m30.billui.view.SaleOrderBillForm;
 		 import nc.ui.pubapp.uif2app.view.ShowUpableBillForm;
+import nc.ui.so.m30.billui.rule.MatchLargessRule;
 /*    */ import nc.ui.so.pub.keyvalue.CardKeyValue;
 /*    */ import nc.vo.pubapp.AppContext;
 ///*    */ import nc.vo.so.m30.rule.HeadTotalCalculateRule;
 ///*    */ import nc.vo.so.m30.util.SaleOrderClientContext;
 ///*    */ import nc.vo.so.m30trantype.entity.M30TranTypeVO;
+import nc.vo.so.m30.rule.HeadTotalCalculateRule;
 import nc.vo.so.m30.util.SaleOrderClientContext;
 /*    */ import nc.vo.so.pub.keyvalue.IKeyValue;
 import nc.vo.so.pub.rule.BodyValueRowRule;
@@ -50,11 +52,11 @@ import nc.vo.so.shipmens.util.ShipmentsClientContext;
 ///*    */     
 ///* 48 */     ctrule.associateCT(rows);
 ///*    */     
-///* 50 */     MatchLargessRule matchlarrule = new MatchLargessRule(cardPanel);
-///* 51 */     matchlarrule.matchLargess(rows);
-///*    */     
-///*    */ 
-///* 54 */     HeadTotalCalculateRule totalrule = new HeadTotalCalculateRule(keyValue);
-///* 55 */     totalrule.calculateHeadTotal();
+			MatchLargessRule matchlarrule = new MatchLargessRule(cardPanel);
+			matchlarrule.matchLargess(rows);
+/*    */     
+/*    */ 
+/* 54 */     HeadTotalCalculateRule totalrule = new HeadTotalCalculateRule(keyValue);
+/* 55 */     totalrule.calculateHeadTotal();
 /*    */   }
 /*    */ }

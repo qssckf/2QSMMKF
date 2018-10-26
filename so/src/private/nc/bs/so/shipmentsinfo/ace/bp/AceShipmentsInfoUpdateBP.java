@@ -1,5 +1,6 @@
 package nc.bs.so.shipmentsinfo.ace.bp;
 
+import nc.bs.so.fq.maintain.rule.update.RewriteBillUpdateRule;
 import nc.bs.so.shipmentsinfo.plugin.bpplugin.ShipmentsInfoPluginPoint;
 import nc.impl.pubapp.pattern.data.bill.template.UpdateBPTemplate;
 import nc.impl.pubapp.pattern.rule.ICompareRule;
@@ -34,6 +35,7 @@ public class AceShipmentsInfoUpdateBP {
 		((nc.bs.pubapp.pub.rule.BillCodeCheckRule)rule).setOrgItem("pk_org");
 				     				    				   				   
 		processer.addAfterRule(rule);
+		processer.addAfterRule(new RewriteBillUpdateRule());
 				   				     
     }
 	private void addBeforeRule(CompareAroundProcesser<AggShipmentsVO> processer) {

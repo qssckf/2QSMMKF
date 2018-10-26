@@ -115,7 +115,7 @@ public class ShipmentsInfoMaintainImpl extends AceShipmentsInfoPubServiceImpl im
 		  processor.appendWhere(sqlbuild.toString());
 		  processor.appendRefTrantypeWhere("FQ01", SOBillType.Order.getCode(), "transtype");
 		
-		  String ordersql = createOrderSql(queryScheme);
+		  String ordersql = createPreOrderSql(queryScheme);
 		  
 		  SchemeViewQuery<ShipmentsViewVO> query = new SchemeViewQuery(ShipmentsViewVO.class);
 		  ShipmentsViewVO[] views=(ShipmentsViewVO[])query.query(queryScheme, ordersql);
@@ -137,6 +137,27 @@ public class ShipmentsInfoMaintainImpl extends AceShipmentsInfoPubServiceImpl im
 		  
 		  return queryVos;
 	  }
+
+	private String createPreOrderSql(IQueryScheme queryScheme) {
+		// TODO 自动生成的方法存根
+		SqlBuilder order = new SqlBuilder();
+		QuerySchemeProcessor processor = new QuerySchemeProcessor(queryScheme);
+		order.append(" order by ");
+		String tableName = processor.getTableAliasOfAttribute(PreOrderHVO.class, "vbillcode");
+		
+		
+		order.append(tableName);
+		order.append(".");
+		order.append("vbillcode");
+		order.append(",");
+		tableName = processor.getTableAliasOfAttribute(PreOrderBVO.class, "crowno");
+		
+		
+		order.append(tableName);
+		order.append(".");
+		order.append("crowno");
+		return order.toString();
+	}
 
 	private String createOrderSql(IQueryScheme queryScheme) {
 		// TODO 自动生成的方法存根
@@ -364,15 +385,8 @@ public class ShipmentsInfoMaintainImpl extends AceShipmentsInfoPubServiceImpl im
 		 sqlbuild.append(maintablename + ".pk_group", pk_group);
 		 sqlbuild.append(" and ");
 		 sqlbuild.append(maintablename + ".fstatusflag", BillStatus.AUDIT.getIntValue());
-		 
-		 
-		 nc.vo.pub.lang.UFDate busiDate = AppContext.getInstance().getBusiDate();
-		 sqlbuild.append(" and ");
-		 sqlbuild.append(maintablename + ".dabatedate" + " > '" + busiDate + "'");
-		 
+		 		 
 		 String chidtable = processor.getTableAliasOfAttribute("so_preorder_b.blineclose");
-		 
-		 
 		 sqlbuild.append(" and ");
 		 sqlbuild.append(chidtable + "." + "blineclose", UFBoolean.FALSE);
 		 
@@ -385,7 +399,7 @@ public class ShipmentsInfoMaintainImpl extends AceShipmentsInfoPubServiceImpl im
 		 
 		 
 		 
-		 String ordersql = createOrderSql(queryScheme);
+		 String ordersql = createPreOrderSql(queryScheme);
 		 
 		 SchemeViewQuery<PreOrderViewVO> query = new SchemeViewQuery(PreOrderViewVO.class);
 		 

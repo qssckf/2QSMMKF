@@ -1,5 +1,6 @@
 package nc.bs.so.shipmentsinfo.ace.bp;
 
+import nc.bs.so.fq.maintain.rule.insert.RewriteBillInsertRule;
 import nc.bs.so.shipmentsinfo.plugin.bpplugin.ShipmentsInfoPluginPoint;
 import nc.impl.pubapp.pattern.data.bill.template.InsertBPTemplate;
 import nc.impl.pubapp.pattern.rule.IRule;
@@ -32,6 +33,7 @@ public class AceShipmentsInfoInsertBP {
 	    ((nc.bs.pubapp.pub.rule.BillCodeCheckRule)rule).setOrgItem("pk_org");
 	    
 		 processor.addAfterRule(rule);
+		 processor.addAfterRule(new RewriteBillInsertRule());
 				   				   
     }
   /**

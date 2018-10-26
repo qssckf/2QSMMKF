@@ -47,7 +47,7 @@ package nc.ui.so.shipmentsinfo.billui.action;
 /* 47 */     String vtrantype = TrantypeFuncUtils.getTrantype(getModel().getContext());
 /*    */     
 /* 49 */     if (StringUtil.isEmptyWithTrim(vtrantype)) {
-/* 50 */       context.setCurrBilltype(SOBillType.Order.getCode());
+/* 50 */       context.setCurrBilltype("FQ01");
 /*    */     }
 /*    */     else {
 /* 53 */       context.setCurrBilltype(vtrantype);

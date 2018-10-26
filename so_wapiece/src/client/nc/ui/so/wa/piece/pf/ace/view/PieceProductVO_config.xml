@@ -52,7 +52,7 @@
 		<property name="dataManager" ref="modelDataManager" />
 	</bean>
 	<!-- ап╠М©ь╪Ч -->
-	<bean id="list" class="nc.ui.pubapp.uif2app.view.ShowUpableBatchBillTable"
+	<bean id="list" class="nc.ui.so.wa.piece.pf.ace.view.PieceProductBatchBillTable"
 		init-method="initUI">
 		<property name="model" ref="batchBillTableModel" />
 		<property name="voClassName" value="nc.vo.so.wa.piece.PieceProductVO" />

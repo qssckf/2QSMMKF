@@ -17,6 +17,13 @@ public class PieceProductBatchBillTable extends ShowUpableBatchBillTable {
 		super.onEdit();
 		
 		getBillCardPanel().getBodyItem("isdefault").setEdit(false);
+		getBillCardPanel().getBodyItem("pk_group").setEdit(false);
+		getBillCardPanel().getBodyItem("pk_org").setEdit(false);
+		getBillCardPanel().getBodyItem("pk_org_v").setEdit(false);
+		getBillCardPanel().getBodyItem("isdefault").setEdit(false);
+		getBillCardPanel().getBodyItem("isdefault").setEdit(false);
+		getBillCardPanel().getBodyItem("isdefault").setEdit(false);
+		getBillCardPanel().getBodyItem("isdefault").setEdit(false);
 	}
 	
 	

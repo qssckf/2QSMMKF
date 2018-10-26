@@ -12,6 +12,7 @@ import nc.md.persist.framework.MDPersistenceService;
 import nc.ui.pub.beans.MessageDialog;
 import nc.ui.uif2.NCAction;
 import nc.ui.uif2.ShowStatusBarMsgUtil;
+import nc.ui.uif2.UIState;
 import nc.ui.uif2.model.BatchBillTableModel;
 import nc.vo.pub.BusinessException;
 import nc.vo.pub.lang.UFBoolean;
@@ -115,4 +116,14 @@ public class PieceProductSetDefaultAction extends NCAction{
 		
 	}
 
+	@Override
+	protected boolean isActionEnable() {
+		// TODO 自动生成的方法存根
+		
+		return (getModel().getUiState()==UIState.NOT_EDIT && getModel().getRows().size() == 1) && (getModel().getSelectedIndex() != -1);
+		
+	}
+
+	
+	
 }

@@ -8,7 +8,13 @@ public enum StatePlugInPoint implements IPluginPoint
 
 	RowCloseState("nc.bs.so.fq.state.row.RowCloseState"), 
 
-	RowOpenState("nc.bs.so.fq.state.row.RowOpenState");
+	RowOpenState("nc.bs.so.fq.state.row.RowOpenState"),
+	
+	Row38CloseState("nc.bs.so.fq.state.row.Row38CloseState"), 
+
+	Row38OpenState("nc.bs.so.fq.state.row.Row38OpenState");
+	
+	
   
 	private String point;
   

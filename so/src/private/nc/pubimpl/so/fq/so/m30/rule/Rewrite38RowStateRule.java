@@ -3,6 +3,8 @@
  import java.util.ArrayList;
  import java.util.List;
  import nc.bs.so.fq.state.pub.ShipOrderStateMachine;
+import nc.bs.so.fq.state.row.Row38CloseState;
+import nc.bs.so.fq.state.row.Row38OpenState;
 import nc.bs.so.m38.state.PreOrderStateMachine;
  import nc.bs.so.m38.state.row.RowCloseState;
  import nc.bs.so.m38.state.row.RowOpenState;
@@ -17,8 +19,8 @@ import nc.vo.so.m38.entity.PreOrderViewVO;
    
    public void process(PreOrderViewVO[] vos){
 	   
-     RowOpenState openState = new RowOpenState();
-     RowCloseState closeState = new RowCloseState();
+	   Row38OpenState openState = new Row38OpenState();
+	   Row38CloseState closeState = new Row38CloseState();
      
      List<PreOrderViewVO> closeList = new ArrayList();
      List<PreOrderViewVO> openList = new ArrayList();

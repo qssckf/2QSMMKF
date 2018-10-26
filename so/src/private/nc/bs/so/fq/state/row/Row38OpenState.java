@@ -4,6 +4,7 @@ package nc.bs.so.fq.state.row;
  import java.util.List;
 
 import nc.bs.so.fq.plugin.StatePlugInPoint;
+import nc.bs.so.fq.state.bill.Bill38OpenState;
 import nc.bs.so.fq.state.pub.Bill38StateUtil;
 import nc.bs.so.fq.state.pub.BillStateUtil;
 import nc.bs.so.fq.state.pub.State38CalculateUtil;
@@ -97,7 +98,7 @@ import nc.vo.so.qs.sc.ShipmentsViewVO;
    @Override
    public IState<PreOrderVO> getTransitTargetState() {
 	// TODO 自动生成的方法存根
-	   return null;
+	   return new Bill38OpenState();
    }
 
 

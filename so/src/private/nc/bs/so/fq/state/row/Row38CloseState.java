@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nc.bs.so.fq.plugin.StatePlugInPoint;
+import nc.bs.so.fq.state.bill.Bill38CloseState;
 import nc.bs.so.fq.state.pub.Bill38StateUtil;
 import nc.bs.so.fq.state.pub.BillStateUtil;
 import nc.bs.so.fq.state.pub.State38CalculateUtil;
@@ -96,6 +97,6 @@ public class Row38CloseState extends AbstractRowState<PreOrderViewVO> implements
   @Override
   public IState<PreOrderVO> getTransitTargetState() {
 	// TODO 自动生成的方法存根
-	  return null;
+	  return new Bill38CloseState();
   }
 }

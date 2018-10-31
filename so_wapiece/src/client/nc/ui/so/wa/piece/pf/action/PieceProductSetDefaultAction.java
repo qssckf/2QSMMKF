@@ -2,6 +2,7 @@ package nc.ui.so.wa.piece.pf.action;
 
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import nc.bs.framework.common.NCLocator;
@@ -75,6 +76,8 @@ public class PieceProductSetDefaultAction extends NCAction{
 
 		if(pk_oldid!=null){
 			
+			ids.add(pk_oldid);
+			
 			int res = MessageDialog.showYesNoDlg(getModel().getContext().getEntranceUI(),"警告","当前组织已经存在计件产品，设置默认操作将情况将清空已有产品默认状态，是否继续？");
 
 			if(res==8){
@@ -86,15 +89,16 @@ public class PieceProductSetDefaultAction extends NCAction{
 		}
 		
 		PieceProductVO ret=this.getService().setDefault(vo);
-		
-		ids.add(pk_oldid);
+
+
 		ids.add(ret.getPk_ppid());
 		
-		PieceProductVO[] retvos=(PieceProductVO[]) this.getMDQueryService().queryBillOfVOByPKsWithOrder(PieceProductVO.class, ids.toArray(new String[ids.size()]), false);
+		Collection<PieceProductVO> cols=this.getMDQueryService().queryBillOfVOByPKs(PieceProductVO.class, ids.toArray(new String[ids.size()]), false);
+		
 		
 		int rows=this.getModel().getRowCount();
 		
-		for(PieceProductVO retvo:retvos){
+		for(PieceProductVO retvo:cols){
 			
 			for(int i=0;i<rows;i++){
 				
@@ -120,7 +124,17 @@ public class PieceProductSetDefaultAction extends NCAction{
 	protected boolean isActionEnable() {
 		// TODO 自动生成的方法存根
 		
-		return (getModel().getUiState()==UIState.NOT_EDIT && getModel().getRows().size() == 1) && (getModel().getSelectedIndex() != -1);
+		Integer[] rows=this.getModel().getSelectedOperaRows();
+		
+		Boolean sf=false;
+		
+		if(rows!=null && rows.length==1){
+			
+			sf=true;
+			
+		}
+		
+		return getModel().getUiState()==UIState.NOT_EDIT && sf;
 		
 	}
 

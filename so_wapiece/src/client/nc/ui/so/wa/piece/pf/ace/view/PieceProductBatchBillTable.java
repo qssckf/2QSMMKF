@@ -20,10 +20,10 @@ public class PieceProductBatchBillTable extends ShowUpableBatchBillTable {
 		getBillCardPanel().getBodyItem("pk_group").setEdit(false);
 		getBillCardPanel().getBodyItem("pk_org").setEdit(false);
 		getBillCardPanel().getBodyItem("pk_org_v").setEdit(false);
-		getBillCardPanel().getBodyItem("isdefault").setEdit(false);
-		getBillCardPanel().getBodyItem("isdefault").setEdit(false);
-		getBillCardPanel().getBodyItem("isdefault").setEdit(false);
-		getBillCardPanel().getBodyItem("isdefault").setEdit(false);
+		getBillCardPanel().getBodyItem("creator").setEdit(false);
+		getBillCardPanel().getBodyItem("creationtime").setEdit(false);
+		getBillCardPanel().getBodyItem("modifier").setEdit(false);
+		getBillCardPanel().getBodyItem("modifiedtime").setEdit(false);
 	}
 	
 	

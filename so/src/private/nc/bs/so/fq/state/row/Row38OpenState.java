@@ -16,6 +16,7 @@ import nc.bs.so.fq.state.pub.StateCalculateUtil;
  import nc.vo.pub.lang.UFBoolean;
 import nc.vo.pubapp.pattern.log.TimeLog;
 import nc.vo.so.m38.entity.PreOrderVO;
+import nc.vo.so.m38.entity.PreOrderBVO;
 import nc.vo.so.m38.entity.PreOrderViewVO;
 import nc.vo.so.qs.sc.AggShipmentsVO;
 import nc.vo.so.qs.sc.AggShipmentsVOMeta;
@@ -29,7 +30,7 @@ import nc.vo.so.qs.sc.ShipmentsViewVO;
    
    public Row38OpenState()
    {
-     super(ShipmentsBVO.class, "blineclose", UFBoolean.FALSE);
+     super(PreOrderBVO.class, "blineclose", UFBoolean.FALSE);
    }
    
  

@@ -96,7 +96,7 @@
 		</property>
 	</bean>
 	
-	<bean id="formulaRealEditorPanel" class="nc.ui.hncf.pc.pieceformuladefinevo_401.view.dialog.PieceFormulaRealEditorPanel" init-method="initUI">
+	<bean id="formulaRealEditorPanel" class="nc.ui.so.wa.piece.ace.view.dialog.PieceFormulaRealEditorPanel" init-method="initUI">
 		<property name="formulaParse">
 			<ref bean="formulaParse" />
 		</property>
@@ -111,7 +111,7 @@
 		</property>
 	</bean>
 	
-	<bean id="formulavalueRealEditorPanel" class="nc.ui.hncf.pc.pieceformuladefinevo_401.view.dialog.PieceFormulaCodeRealEditorPanel" init-method="initUI">
+	<bean id="formulavalueRealEditorPanel" class="nc.ui.so.wa.piece.ace.view.dialog.PieceFormulaCodeRealEditorPanel" init-method="initUI">
 		<property name="formulaParse">
 			<ref bean="formulaParse" />
 		</property>
@@ -186,7 +186,7 @@
 		</property>
 	</bean>
 	
-	<bean id="formulaOperatorPanel" class="nc.ui.hncf.pc.pieceformuladefinevo_401.view.dialog.PieceFormulaOperatorPanel">
+	<bean id="formulaOperatorPanel" class="nc.ui.so.wa.piece.ace.view.dialog.PieceFormulaOperatorPanel">
 		<property name="listeners">
 			<list>
 				<ref bean="formulaRealEditorPanel" />

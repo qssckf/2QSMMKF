@@ -49,11 +49,12 @@
 		<property name="dataManager" ref="modelDataManager" />
 	</bean>
 	
-	<bean id="list" class="nc.ui.hncf.pc.pieceformuladefinevo_401.ace.view.PieceFormulaBatchBillTable" init-method="initUI">
+	<bean id="list" class="nc.ui.so.wa.piece.ace.view.PieceFormulaBatchBillTable" init-method="initUI">
 		<property name="model" ref="batchBillTableModel" />
 		<property name="voClassName" value="nc.vo.so.wa.piece.FormulaDefine" />
 		<property name="isBodyAutoAddLine" value="false" />
 		<property name="addLineAction" ref="addAction" />
+		<property name="nodekey" value="pf"></property>
 	</bean>
 	
 	<bean id="appEventHandlerMediator" class="nc.ui.pubapp.uif2app.model.AppEventHandlerMediator">

@@ -41,6 +41,14 @@ public class PieceFormulaBatchBillTable extends ShowUpableBatchBillTable {
 		super.onEdit();
 		
 		getBillCardPanel().getBodyItem("formula").setEdit(true);
+		getBillCardPanel().getBodyItem("pk_group").setEdit(false);
+		getBillCardPanel().getBodyItem("pk_org").setEdit(false);
+		getBillCardPanel().getBodyItem("pk_org_v").setEdit(false);
+		getBillCardPanel().getBodyItem("code").setEdit(false);
+		getBillCardPanel().getBodyItem("creator").setEdit(false);
+		getBillCardPanel().getBodyItem("creationtime").setEdit(false);
+		getBillCardPanel().getBodyItem("modifier").setEdit(false);
+		getBillCardPanel().getBodyItem("modifiedtime").setEdit(false);
 	}
 	
 	

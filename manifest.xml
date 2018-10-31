@@ -38,6 +38,7 @@
     </resource>
     <funnodes>
       <funnode name="计件产品" code="4006210102" funnode="so_wapiece/ace/client/4006210102.fnf" service="so_wapiece/ace/service/4006210102.smf"/>
+      <funnode name="取数规则定义" code="4006210104" funnode="so_wapiece/ace/client/4006210104.fnf" service="so_wapiece/ace/service/4006210104.smf"/>
     </funnodes>
   </BusinessComponet>
 </Manifest>

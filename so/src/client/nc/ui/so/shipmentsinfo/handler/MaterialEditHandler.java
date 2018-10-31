@@ -119,6 +119,10 @@ public class MaterialEditHandler
 
     SOCustMaterialInfoRule socustmar = new SOCustMaterialInfoRule(keyValue);
     socustmar.setCustMaterial(rows);
+    
+    cardPanel.getBodyItem("vfree1").setEnabled(true);
+    cardPanel.getBodyItem("vfree2").setEnabled(true);
+    cardPanel.getBodyItem("vfree3").setEnabled(true);
   }
   
 

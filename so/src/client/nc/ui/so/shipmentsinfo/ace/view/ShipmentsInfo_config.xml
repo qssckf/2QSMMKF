@@ -150,12 +150,12 @@
 				<bean class="nc.ui.uif2.editor.UserdefQueryParam">
 					<property name="mdfullname" value="so.ShipmentsVO" />
 					<property name="pos" value="0" />
-					<property name="prefix" value="vdef" />
+					<property name="prefix" value="def" />
 				</bean>	
 					<bean class="nc.ui.uif2.editor.UserdefQueryParam">
 					<property name="mdfullname" value="so.ShipmentsBVO" />
 					<property name="pos" value="1" />
-					<property name="prefix" value="vbdef" />
+					<property name="prefix" value="def" />
 					<property name="tabcode" value="ShipmentsBVO" />
 				</bean>	
 			</list>
@@ -167,7 +167,7 @@
 		<property name="model" ref="manageAppModel" />
 		<property name="container" ref="userdefitemContainer" />
 		<property name="prefix" value="vfree" />
-		<property name="materialField" value="cateralvid" />
+		<property name="materialField" value="cmaterialvid" />
 	</bean>
 	
 	<bean id="userdefitemContainer"
@@ -791,7 +791,7 @@
 					</key>
 					<list>
 						<value>cmaterialid</value>
-						<value>cateralvid</value>
+						<value>cmaterialvid</value>
 					</list>
 				</entry>
 			</map>

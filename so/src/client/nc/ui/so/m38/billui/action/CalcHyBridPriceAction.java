@@ -305,10 +305,13 @@ public class CalcHyBridPriceAction extends NCAsynAction{
 	@Override
 	public void doAction(ActionEvent event) throws Exception {
 		// TODO 自动生成的方法存根
-		
+		Map<String,Map<String,UFDouble>> bominfomap=new HashMap();
+		Map<String,Map<String,UFDouble>> cusmap=new HashMap();
 	
-		Map<String,Map<String,UFDouble>> bominfomap=this.getPlanService().querBominfoByHybridPrice(this.getPk_org(), this.getMatpk());
-		Map<String,Map<String,UFDouble>> cusmap = this.getPlanService().querCusPriceByHybridPrice(this.getPk_org(), this.getDefcus());
+		bominfomap=this.getPlanService().querBominfoByHybridPrice(this.getPk_org(), this.getMatpk());
+		cusmap = this.getPlanService().querCusPriceByHybridPrice(this.getPk_org(), this.getDefcus());
+		
+
 		
 		IKeyValue keyValue = new CardKeyValue(this.editor.getBillCardPanel());
 		int row=this.getEditor().getBillCardPanel().getRowCount();

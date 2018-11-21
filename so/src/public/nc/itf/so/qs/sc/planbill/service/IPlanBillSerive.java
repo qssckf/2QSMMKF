@@ -45,5 +45,7 @@ public abstract interface IPlanBillSerive {
 	public Map<String,Map<String,UFDouble>> querBominfoByHybridPrice(String pk_org,Set<String> mat) throws BusinessException;
 	
 	public Map<String,Map<String,UFDouble>> querCusPriceByHybridPrice(String pk_org,Set<String> cus) throws BusinessException;
+	
+	public SuperVO[] queryBomleafChildren(String bomid, String pk_org) throws BusinessException;
 
 }

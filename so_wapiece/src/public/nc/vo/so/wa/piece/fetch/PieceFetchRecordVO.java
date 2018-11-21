@@ -14,6 +14,10 @@ public class PieceFetchRecordVO extends SuperVO {
 */
 public String accountperiod;
 /**
+*项目编码
+*/
+public String code;
+/**
 *自定义项1
 */
 public String def1;
@@ -96,11 +100,23 @@ public String def9;
 /**
 *结束日期
 */
-public String enddate;
+public UFDate enddate;
+/**
+*取数方案
+*/
+public Integer fetchscheme;
 /**
 *是否取数
 */
-public String fetchsf;
+public UFBoolean fetchsf;
+/**
+*取数类型
+*/
+public Integer fetchtype;
+/**
+*项目名称
+*/
+public String name;
 /**
 *主键
 */
@@ -122,13 +138,29 @@ public String pk_org_v;
 */
 public String pk_ruleid;
 /**
+*主表语义模型
+*/
+public String smartdef1;
+/**
+*明细表语义模型
+*/
+public String smartdef2;
+/**
 *起始日期
 */
-public String startdate;
+public UFDate startdate;
 /**
 *时间戳
 */
 public UFDateTime ts;
+/**
+*主vo类
+*/
+public String voclass1;
+/**
+*明细vo类
+*/
+public String voclass2;
 /** 
 * 获取会计期间
 *
@@ -145,6 +177,24 @@ return this.accountperiod;
 */
 public void setAccountperiod ( String accountperiod) {
 this.accountperiod=accountperiod;
+ } 
+
+/** 
+* 获取项目编码
+*
+* @return 项目编码
+*/
+public String getCode () {
+return this.code;
+ } 
+
+/** 
+* 设置项目编码
+*
+* @param code 项目编码
+*/
+public void setCode ( String code) {
+this.code=code;
  } 
 
 /** 
@@ -512,7 +562,7 @@ this.def9=def9;
 *
 * @return 结束日期
 */
-public String getEnddate () {
+public UFDate getEnddate () {
 return this.enddate;
  } 
 
@@ -521,8 +571,28 @@ return this.enddate;
 *
 * @param enddate 结束日期
 */
-public void setEnddate ( String enddate) {
+public void setEnddate ( UFDate enddate) {
 this.enddate=enddate;
+ } 
+
+/** 
+* 获取取数方案
+*
+* @return 取数方案
+* @see String
+*/
+public Integer getFetchscheme () {
+return this.fetchscheme;
+ } 
+
+/** 
+* 设置取数方案
+*
+* @param fetchscheme 取数方案
+* @see String
+*/
+public void setFetchscheme ( Integer fetchscheme) {
+this.fetchscheme=fetchscheme;
  } 
 
 /** 
@@ -530,7 +600,7 @@ this.enddate=enddate;
 *
 * @return 是否取数
 */
-public String getFetchsf () {
+public UFBoolean getFetchsf () {
 return this.fetchsf;
  } 
 
@@ -539,8 +609,46 @@ return this.fetchsf;
 *
 * @param fetchsf 是否取数
 */
-public void setFetchsf ( String fetchsf) {
+public void setFetchsf ( UFBoolean fetchsf) {
 this.fetchsf=fetchsf;
+ } 
+
+/** 
+* 获取取数类型
+*
+* @return 取数类型
+* @see String
+*/
+public Integer getFetchtype () {
+return this.fetchtype;
+ } 
+
+/** 
+* 设置取数类型
+*
+* @param fetchtype 取数类型
+* @see String
+*/
+public void setFetchtype ( Integer fetchtype) {
+this.fetchtype=fetchtype;
+ } 
+
+/** 
+* 获取项目名称
+*
+* @return 项目名称
+*/
+public String getName () {
+return this.name;
+ } 
+
+/** 
+* 设置项目名称
+*
+* @param name 项目名称
+*/
+public void setName ( String name) {
+this.name=name;
  } 
 
 /** 
@@ -634,11 +742,47 @@ this.pk_ruleid=pk_ruleid;
  } 
 
 /** 
+* 获取主表语义模型
+*
+* @return 主表语义模型
+*/
+public String getSmartdef1 () {
+return this.smartdef1;
+ } 
+
+/** 
+* 设置主表语义模型
+*
+* @param smartdef1 主表语义模型
+*/
+public void setSmartdef1 ( String smartdef1) {
+this.smartdef1=smartdef1;
+ } 
+
+/** 
+* 获取明细表语义模型
+*
+* @return 明细表语义模型
+*/
+public String getSmartdef2 () {
+return this.smartdef2;
+ } 
+
+/** 
+* 设置明细表语义模型
+*
+* @param smartdef2 明细表语义模型
+*/
+public void setSmartdef2 ( String smartdef2) {
+this.smartdef2=smartdef2;
+ } 
+
+/** 
 * 获取起始日期
 *
 * @return 起始日期
 */
-public String getStartdate () {
+public UFDate getStartdate () {
 return this.startdate;
  } 
 
@@ -647,7 +791,7 @@ return this.startdate;
 *
 * @param startdate 起始日期
 */
-public void setStartdate ( String startdate) {
+public void setStartdate ( UFDate startdate) {
 this.startdate=startdate;
  } 
 
@@ -667,6 +811,42 @@ return this.ts;
 */
 public void setTs ( UFDateTime ts) {
 this.ts=ts;
+ } 
+
+/** 
+* 获取主vo类
+*
+* @return 主vo类
+*/
+public String getVoclass1 () {
+return this.voclass1;
+ } 
+
+/** 
+* 设置主vo类
+*
+* @param voclass1 主vo类
+*/
+public void setVoclass1 ( String voclass1) {
+this.voclass1=voclass1;
+ } 
+
+/** 
+* 获取明细vo类
+*
+* @return 明细vo类
+*/
+public String getVoclass2 () {
+return this.voclass2;
+ } 
+
+/** 
+* 设置明细vo类
+*
+* @param voclass2 明细vo类
+*/
+public void setVoclass2 ( String voclass2) {
+this.voclass2=voclass2;
  } 
 
 

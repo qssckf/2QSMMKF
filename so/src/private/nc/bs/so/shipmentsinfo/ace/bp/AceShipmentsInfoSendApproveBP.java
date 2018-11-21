@@ -25,7 +25,7 @@ public class AceShipmentsInfoSendApproveBP {
 	      }
     // 数据持久化
     AggShipmentsVO[] returnVos =
-        new BillUpdate<AggShipmentsVO>().update(clientBills, originBills);
+    		new BillUpdate<AggShipmentsVO>().update(clientBills, originBills);
     return returnVos;
   }
 }

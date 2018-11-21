@@ -2,7 +2,10 @@
 /*      */ 
 /*      */ import java.util.List;
 /*      */ import java.util.Map;
-/*      */ import nc.ui.uif2.editor.UserdefQueryParam;
+
+import javax.swing.Action;
+
+import nc.ui.uif2.editor.UserdefQueryParam;
 /*      */ 
 /*      */ public class preorder_config extends nc.ui.uif2.factory.AbstractJavaBeanDefinition
 /*      */ {
@@ -745,7 +748,7 @@
 /*  745 */     return bean;
 /*      */   }
 /*      */   
-/*  748 */   private List getManagedList15() { List list = new java.util.ArrayList();list.add(getAddAction());list.add(getEditAction());list.add(getDeleteAction());list.add(getCopyAction());list.add(getSeparatorAction());list.add(getQueryAction());list.add(getListRefreshAction());list.add(getSeparatorAction());list.add(getApproveGroupAction());list.add(getAssitFuncActionGroup());list.add(getSeparatorAction());list.add(getLinkQueryActionGroup());list.add(getSeparatorAction());list.add(getPrintActionGroup());return list;
+/*  748 */   private List getManagedList15() { List list = new java.util.ArrayList();list.add(getAddAction());list.add(getEditAction());list.add(getDeleteAction());list.add(getCopyAction());list.add(getSeparatorAction());list.add(getQueryAction());list.add(getListRefreshAction());list.add(getSeparatorAction());list.add(getSendActionGroup());list.add(getApproveGroupAction());list.add(getAssitFuncActionGroup());list.add(getSeparatorAction());list.add(getLinkQueryActionGroup());list.add(getSeparatorAction());list.add(getPrintActionGroup());return list;
 /*      */   }
 /*      */   
 /*  751 */   public nc.ui.uif2.actions.StandAloneToftPanelActionContainer getActionsOfCard() { if (this.context.get("actionsOfCard") != null)
@@ -759,7 +762,7 @@
 /*  759 */     return bean;
 /*      */   }
 /*      */   
-/*  762 */   private List getManagedList16() { List list = new java.util.ArrayList();list.add(getAddAction());list.add(getEditAction());list.add(getDeleteAction());list.add(getCopyAction());list.add(getSeparatorAction());list.add(getQueryAction());list.add(getCardRefreshAction());list.add(getSeparatorAction());list.add(getApproveGroupAction());list.add(getAssitFuncActionGroup());list.add(getSeparatorAction());list.add(getLinkQueryActionGroup());list.add(getSeparatorAction());list.add(getPrintActionGroup());return list; }
+/*  762 */   private List getManagedList16() { List list = new java.util.ArrayList();list.add(getAddAction());list.add(getEditAction());list.add(getDeleteAction());list.add(getCopyAction());list.add(getSeparatorAction());list.add(getQueryAction());list.add(getCardRefreshAction());list.add(getSeparatorAction());list.add(getSendActionGroup());list.add(getApproveGroupAction());list.add(getAssitFuncActionGroup());list.add(getSeparatorAction());list.add(getLinkQueryActionGroup());list.add(getSeparatorAction());list.add(getPrintActionGroup());return list; }
 /*      */   
 /*  764 */   private List getManagedList17() { List list = new java.util.ArrayList();list.add(getSaveAction());list.add(getSeparatorAction());list.add(getCancelAction());list.add(getSeparatorAction());list.add(getCalcHyBridPriceAction());list.add(getSeparatorAction());list.add(getEditAssitFuncActionGroup());list.add(getSeparatorAction());list.add(getEditLinkQueryActionGroup());return list;
 /*      */   }
@@ -800,7 +803,70 @@
 /*  800 */     invokeInitializingBean(bean);
 /*  801 */     return bean;
 /*      */   }
-/*      */   
+
+			 public nc.funcnode.ui.action.GroupAction getSendActionGroup() {
+				
+				if (this.context.get("sendActionGroup") != null)
+				  return (nc.funcnode.ui.action.GroupAction)this.context.get("sendActionGroup");
+				
+				nc.funcnode.ui.action.GroupAction bean = new nc.funcnode.ui.action.GroupAction();
+				this.context.put("sendActionGroup", bean);
+				bean.setActions(getManagedList30());
+				setBeanFacotryIfBeanFacatoryAware(bean);
+				invokeInitializingBean(bean);
+				return bean;
+				
+			 }
+			 
+             private List<Action> getManagedList30() {
+				// TODO 自动生成的方法存根
+            	 
+            	 List list = new java.util.ArrayList();
+            	 list.add(getSendApproveAction());
+            	 list.add(getUnsendApproveAction());
+            	 
+            	 return list;
+
+			 }
+             
+             
+
+             private nc.ui.so.m38.billui.action.PreOrderUnSendApproveAction getUnsendApproveAction() {
+				// TODO 自动生成的方法存根
+            	 if (this.context.get("unsendApproveAction") != null)
+            		 return (nc.ui.so.m38.billui.action.PreOrderUnSendApproveAction)this.context.get("unsendApproveAction");
+            	 
+            	 nc.ui.so.m38.billui.action.PreOrderUnSendApproveAction bean=new nc.ui.so.m38.billui.action.PreOrderUnSendApproveAction();
+            	 this.context.put("unsendApproveAction", bean);
+            	 bean.setModel(getManageAppModel());
+            	 bean.setEditor(getBillFormEditor());
+            	 bean.setFilledUpInFlow(true);
+            	 bean.setActionName("UNSAVE");
+            	 bean.setBillType("38");
+            	 invokeInitializingBean(bean);
+            	 return bean;
+         
+             }
+             
+             private nc.ui.so.m38.billui.action.PreOrderSendApproveAction getSendApproveAction() {
+				// TODO 自动生成的方法存根
+            	 if (this.context.get("sendApproveAction") != null)
+            		 return (nc.ui.so.m38.billui.action.PreOrderSendApproveAction)this.context.get("sendApproveAction");
+            	 
+            	 nc.ui.so.m38.billui.action.PreOrderSendApproveAction bean=new nc.ui.so.m38.billui.action.PreOrderSendApproveAction();
+            	 this.context.put("sendApproveAction", bean);
+            	 bean.setModel(getManageAppModel());
+            	 bean.setEditor(getBillFormEditor());
+            	 bean.setFilledUpInFlow(true);
+            	 bean.setActionName("SAVE");
+            	 bean.setBillType("38");
+            	 invokeInitializingBean(bean);
+            	 return bean;
+            	 
+			 }
+             
+             
+             
 /*      */   public nc.ui.pubapp.uif2app.validation.CompositeValidation getCompositevalidateService() {
 /*  805 */     if (this.context.get("compositevalidateService") != null)
 /*  806 */       return (nc.ui.pubapp.uif2app.validation.CompositeValidation)this.context.get("compositevalidateService");
@@ -990,7 +1056,7 @@
 /*      */     } catch (Exception e) {
 /*  979 */       throw new RuntimeException(e); } }
 /*      */   
-/*  981 */   private List getManagedList19() { List list = new java.util.ArrayList();list.add(getApproveAction());list.add(getUnApproveAction());return list;
+/*  981 */   private List getManagedList19() { List list = new java.util.ArrayList();list.add(getApproveAction());list.add(getUnApproveAction());list.add(getQueryAuditFlowAction());return list;
 /*      */   }
 /*      */   
 /*  984 */   public nc.ui.so.m38.billui.action.PreOrderUnApproveAction getUnApproveAction() { if (this.context.get("unApproveAction") != null)
@@ -1149,6 +1215,19 @@
 /* 1137 */     setBeanFacotryIfBeanFacatoryAware(bean);
 /* 1138 */     invokeInitializingBean(bean);
 /* 1139 */     return bean;
+/*      */   }
+
+
+			public nc.ui.pubapp.uif2app.actions.pflow.PFApproveStatusInfoAction getQueryAuditFlowAction() {
+/* 2083 */     if (this.context.get("queryAuditFlowAction") != null)
+/* 2084 */       return (nc.ui.pubapp.uif2app.actions.pflow.PFApproveStatusInfoAction)this.context.get("queryAuditFlowAction");
+/* 2085 */     nc.ui.pubapp.uif2app.actions.pflow.PFApproveStatusInfoAction bean = new nc.ui.pubapp.uif2app.actions.pflow.PFApproveStatusInfoAction();
+/* 2086 */     this.context.put("queryAuditFlowAction", bean);
+/* 2087 */     bean.setModel(getManageAppModel());
+/* 2088 */     bean.setEditor(getBillFormEditor());
+/* 2089 */     setBeanFacotryIfBeanFacatoryAware(bean);
+/* 2090 */     invokeInitializingBean(bean);
+/* 2091 */     return bean;
 /*      */   }
 /*      */   
 /*      */   public nc.ui.so.m38.billui.action.assit.PreOrderAskqtAction getAskqtAction() {

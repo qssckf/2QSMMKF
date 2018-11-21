@@ -1,6 +1,8 @@
 /*     */ package nc.impl.so.m38;
 /*     */ 
-/*     */ import nc.impl.pubapp.env.BSContext;
+/*     */ import nc.bs.so.m38.maintain.PreOrderSendApproveBP;
+import nc.bs.so.m38.maintain.PreOrderUnSendApproveBP;
+import nc.impl.pubapp.env.BSContext;
 /*     */ import nc.impl.pubapp.pattern.data.bill.BillLazyQuery;
 /*     */ import nc.impl.pubapp.pattern.data.view.SchemeViewQuery;
 /*     */ import nc.impl.so.m38.action.DeletePreOrderAction;
@@ -22,7 +24,7 @@
 /*     */ import nc.vo.so.m38.entity.PreOrderHVO;
 /*     */ import nc.vo.so.m38.entity.PreOrderVO;
 /*     */ import nc.vo.so.m38.entity.PreOrderViewVO;
-/*     */ import nc.vo.so.pub.enumeration.BillStatus;
+import nc.vo.so.pub.enumeration.BillStatus;
 /*     */ 
 /*     */ public class PreOrderMaintainImpl implements IPreOrderMaintain
 /*     */ {
@@ -194,7 +196,28 @@
 /*     */     }
 /* 195 */     return ret;
 /*     */   }
-/*     */ }
+/*     */
+	@Override
+	public PreOrderVO[] save(PreOrderVO[] clientFullVOs, PreOrderVO[] originBills) throws BusinessException {
+	// TODO 自动生成的方法存根
+		
+		PreOrderSendApproveBP bp=new PreOrderSendApproveBP();
+		
+		PreOrderVO[] retvos=bp.sendApprove(clientFullVOs, originBills);
+		
+		return retvos;
+	}
+	@Override
+	public PreOrderVO[] unsave(PreOrderVO[] clientFullVOs, PreOrderVO[] originBills) throws BusinessException {
+	// TODO 自动生成的方法存根
+		
+		PreOrderUnSendApproveBP bp=new PreOrderUnSendApproveBP();
+		
+		PreOrderVO[] retvos=bp.unSend(clientFullVOs, originBills);
+		
+		return retvos;
+	} 	
+}
 
 /* Location:           E:\CODE1\NC633GOLD20180407\NC633GOLD20180407\modules\so\META-INF\lib\so_sellingrequisition.jar
  * Qualified Name:     nc.impl.so.m38.PreOrderMaintainImpl

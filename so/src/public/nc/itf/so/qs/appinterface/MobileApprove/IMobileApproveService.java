@@ -3,6 +3,7 @@ package nc.itf.so.qs.appinterface.MobileApprove;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import nc.vo.pub.BusinessException;
@@ -14,7 +15,7 @@ public interface IMobileApproveService {
 	
 	public abstract Map<String, Object> getTaskBill(String groupid, String userid, String taskid, String statuskey, String statuscode) throws BusinessException;
 	
-	public abstract Map<String, Object> getUserInfo(String usercode, String date) throws Exception;
+	public abstract Map<String, Object> getUserInfo(String usercode, String password,String date) throws Exception;
 		  
 	public abstract Map<String, Object> getApprovedDetail(String groupid, String userid, String taskid, String statuskey, String statuscode, int startline, int count) throws Exception;
 	
@@ -48,6 +49,10 @@ public interface IMobileApproveService {
 	
 	public Map<String, Object> PreOrderApprove(String pk_group, String userid,String bid) throws BusinessException;
 	
+	public Map<String, Object> PreOrderSendApprove(String pk_group, String userid,String bid) throws BusinessException;
 	
+	public Map<String, Object> getTempletInfo(String pk_group, String userid,String billtype) throws BusinessException, JSONException;
+	
+	public Map<String, Object> MatrialEditAfterHandler(String pk_group,String user,String billtype,String pk_org, String material,String customer,String corigcurrencyid,String dbilldate) throws Exception;
 }
 

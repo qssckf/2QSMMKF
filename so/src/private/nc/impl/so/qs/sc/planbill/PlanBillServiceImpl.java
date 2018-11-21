@@ -172,6 +172,24 @@ public class PlanBillServiceImpl implements IPlanBillSerive{
 		
 		return vos;
 	}
+	
+	public SuperVO[] queryBomleafChildren(String bomid, String pk_org) throws BusinessException {
+		// TODO 自动生成的方法存根
+		
+		String sql="select hcmaterialid pk_materail,parentmatcode,parentmatname,matercode,matername,cbomversion,materspec,matertype,level bomlevel,munit,nitemnum itemnum,vnote itemmemo,munitid,qunitid,c_materail,rate from ";
+		sql=sql+"(select a.pk_org,b.cbom_bid,a.cbomid,a.hcmaterialid ,mar.code parentmatcode,mar.name parentmatname,a.hversion,b.vitemversion,bbom.hversion cbomversion,b.cmaterialid,cmar.code matercode,cmar.name matername,cmar.materialspec materspec,cmar.materialtype matertype,unit.name munit,b.nitemnum,b.vnote,b.cmeasureid munitid,b.cassmeasureid qunitid,b.cmaterialid c_materail,b.vfree1 kz,b.vfree2 ys,b.vchangerate rate ";
+		sql=sql+"from bd_bom a ";
+		sql=sql+"inner join bd_bom_b b on a.cbomid=b.cbomid ";
+		sql=sql+"left join bd_material mar on a.hcmaterialid=mar.pk_material ";
+		sql=sql+"left join bd_material cmar on b.cmaterialid=cmar.pk_material ";
+		sql=sql+"left join bd_bom bbom on b.vitemversion=bbom.cbomid ";
+		sql=sql+"left join bd_measdoc unit on b.cmeasureid=unit.pk_measdoc ";
+		sql=sql+"where a.pk_org='"+pk_org+"' and a.dr=0 and b.dr=0) start with cbomid='"+bomid+"' connect by prior vitemversion=cbomid order by level";
+		
+		BomChVO[] vos=(BomChVO[])executeQueryAppendableVOs(sql,BomChVO.class);
+		
+		return vos;
+	}
 
 	@Override
 	public MmPlanBillVO[] Insert(MmPlanBillVO[] objs) throws BusinessException {

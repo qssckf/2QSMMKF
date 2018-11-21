@@ -352,7 +352,7 @@ public class BomInfoDialog extends UIDialog{
 				String pk_org=(String) bodyVOs.getAttributeValue("pk_org");
 				String cbomid=(String) bodyVOs.getAttributeValue("cbomid");
 				
-				CircularlyAccessibleValueObject[] chvos=BomInfoDialog.this.getPlanService().queryBomChildren(cbomid, pk_org);
+				CircularlyAccessibleValueObject[] chvos=BomInfoDialog.this.getPlanService().queryBomleafChildren(cbomid, pk_org);
 				
 				if(chvos!=null && chvos.length>0){
 					

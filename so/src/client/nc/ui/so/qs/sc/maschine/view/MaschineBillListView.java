@@ -38,6 +38,7 @@ import nc.vo.uif2.LoginContext;
 /*     */ public class MaschineBillListView extends ShowUpableBillListView {
 /*     */   private static final long serialVersionUID = 632212855802408L;
 /*  40 */   private String wip_tableCode = "mater";
+			private String head_tableCode="MaschineVO";
 /*     */   
 /*     */ 
 /*     */ 
@@ -114,7 +115,8 @@ import nc.vo.uif2.LoginContext;
 /*     */     
 /*     */ 
 /*     */ 		//ап╠МобеепР
-/* 117 */     getBillListPanel().getBodyBillModel(this.wip_tableCode).sortByColumn("pk_material", true);
+///* 117 */     getBillListPanel().getBodyBillModel(this.wip_tableCode).sortByColumn("pk_material", true);
+				getBillListPanel().getHeadBillModel().sortByColumn("machcode", true);
 /*     */   }
 /*     */   
 /*     */ 

@@ -17,6 +17,7 @@ import nc.ui.pubapp.uif2app.event.card.CardBodyAfterEditEvent;
  
 import nc.ui.so.qs.sc.maschine.handler.body.MaschineCardBodyCusclassHandler;
 import nc.ui.so.qs.sc.maschine.handler.body.MaschineCardBodyCustomerHandler;
+import nc.ui.so.qs.sc.maschine.handler.body.MaschineCardBodyDeptHandler;
 import nc.ui.so.qs.sc.maschine.handler.body.MaschineCardBodyMaterclassHandler;
 import nc.ui.so.qs.sc.maschine.handler.body.MaschineCardBodyMaterialHandler;
 import nc.ui.so.qs.sc.maschine.view.MaschineBillForm;
@@ -33,6 +34,7 @@ public class MaschineCardBodyAfterEditHandler extends MMEventHandler implements 
 		putHandler("custpk_cusclass", MaschineCardBodyCusclassHandler.class);
 		putHandler("materpk_materclass", MaschineCardBodyMaterclassHandler.class);
 		putHandler("materpk_material", MaschineCardBodyMaterialHandler.class);
+		putHandler("deptpk_dept", MaschineCardBodyDeptHandler.class);
 				
 				
 ///* 26 */     putHandler("subst_itemscsubstitutewkid", PDWkCardBodyCsubstitutewkidHandler.class);

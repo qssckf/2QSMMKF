@@ -5,7 +5,7 @@ package nc.ui.so.qs.sc.shipments.billui.pub;
 /*    */ import nc.vo.pub.lang.UFDouble;
 /*    */ import nc.vo.pubapp.AppContext;
 /*    */ import nc.vo.so.pub.SOConstant;
-/*    */ import nc.vo.so.pub.keyvalue.IKeyValue;
+import nc.vo.so.pub.keyvalue.IKeyValue;
 /*    */ 
 /*    */ 
 /*    */ public class BodyDefaultRule
@@ -18,19 +18,40 @@ package nc.ui.so.qs.sc.shipments.billui.pub;
 /*    */   }
 /*    */   
 /*    */   public void setBodyDefaultValue(int[] rows)
-/*    */   {
-/* 22 */     UFDate busidate = AppUiContext.getInstance().getBusiDate();
-/* 23 */     busidate = busidate.asLocalEnd();
+/*    */   {String headorigcur = this.keyValue.getHeadStringValue("corigcurrencyid");
 /*    */     
-/* 25 */     for (int row : rows)
-/*    */     {     
 /*    */ 
-/* 28 */       this.keyValue.setBodyValue(row, "dsenddate", busidate);
-/* 29 */       this.keyValue.setBodyValue(row, "dreceivedate", busidate);
+/* 25 */     UFDate billdate = this.keyValue.getHeadUFDateValue("dbilldate");
+/*    */     
+/* 27 */     UFDouble discountrate = this.keyValue.getHeadUFDoubleValue("ndiscountrate");
+/*    */     
+/* 29 */     if (null == discountrate) {
+/* 30 */       discountrate = SOConstant.ONEHUNDRED;
+/*    */     }
+/*    */     
+/* 33 */     UFDate busidate = AppUiContext.getInstance().getBusiDate();
+/* 34 */     busidate = busidate.asLocalEnd();
+/*    */     
+/* 36 */     for (int row : rows)
+/*    */     {
+/*    */ 
+/* 39 */       this.keyValue.setBodyValue(row, "corigcurrencyid", headorigcur);
+/*    */       
+/* 41 */       this.keyValue.setBodyValue(row, "dbilldate", billdate);
 /*    */       
 /*    */ 
-/* 32 */       this.keyValue.setBodyValue(row, "nnum", null);
-/* 33 */       this.keyValue.setBodyValue(row, "nastnum", null);
-/*    */     }
+/* 44 */       this.keyValue.setBodyValue(row, "ndiscountrate", discountrate);
+/*    */       
+/* 46 */       this.keyValue.setBodyValue(row, "nitemdiscountrate", SOConstant.ONEHUNDRED);
+/*    */       
+/*    */ 
+/* 49 */       this.keyValue.setBodyValue(row, "dsenddate", busidate);
+/* 50 */       this.keyValue.setBodyValue(row, "dreceivedate", busidate);
+/*    */       
+/*    */ 
+/* 53 */       this.keyValue.setBodyValue(row, "nnum", null);
+/* 54 */       this.keyValue.setBodyValue(row, "nastnum", null);
+/* 55 */       this.keyValue.setBodyValue(row, "nqtunitnum", null);
+			}
 /*    */   }
 /*    */ }

@@ -2230,10 +2230,8 @@ public class MobileApproveServiceImpl implements IMobileApproveService {
 	private void setDefaultVaule(BillTempletVO temp, Map<String, Object> retobj,String corigcurrencyid, String dbilldate) throws BusinessException, JSONException {
 		// TODO 自动生成的方法存根
 		
-		UFDouble discountrate = SOConstant.ONEHUNDRED;
+		UFDouble discountrate = new UFDouble(100);
 		
-		UFDate busidate = AppUiContext.getInstance().getBusiDate();
-		busidate = busidate.asLocalEnd();
 		
 		BillItemMeta item=getTempletBillItemByColID(temp,"corigcurrencyid");
 		
@@ -2246,10 +2244,10 @@ public class MobileApproveServiceImpl implements IMobileApproveService {
 		  
 		retobj.put("corigcurrencyid", json);
 		retobj.put("dbilldate", dbilldate);
-		retobj.put("ndiscountrate", discountrate);
-		retobj.put("nitemdiscountrate", SOConstant.ONEHUNDRED);
-		retobj.put("dsenddate", busidate);
-		retobj.put("dreceivedate", busidate);
+		retobj.put("ndiscountrate", discountrate.toDouble());
+		retobj.put("nitemdiscountrate", discountrate.toString());
+		retobj.put("dsenddate", dbilldate);
+		retobj.put("dreceivedate", dbilldate);
 		retobj.put("nexchangerate", 1);
 		
 	}

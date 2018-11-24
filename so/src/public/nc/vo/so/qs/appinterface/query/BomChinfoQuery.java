@@ -99,7 +99,7 @@ public class BomChinfoQuery extends BillQuery{
 		sql=sql+"left join bd_material cmar on b.cmaterialid=cmar.pk_material ";
 		sql=sql+"left join bd_bom bbom on b.vitemversion=bbom.cbomid ";
 		sql=sql+"left join bd_measdoc unit on b.cmeasureid=unit.pk_measdoc ";
-		sql=sql+"where a.dr=0 and b.dr=0 and b.vitemversion<>'~') start with cbomid in "+inSql+" connect by prior vitemversion=cbomid order by level";
+		sql=sql+"where a.dr=0 and b.dr=0) start with cbomid in "+inSql+" connect by prior vitemversion=cbomid order by level";
 		
 		
 		IRowSet row=this.getDao().query(sql);

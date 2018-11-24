@@ -315,7 +315,6 @@ public class MobileApproveServiceImpl implements IMobileApproveService {
 		    	
 		    	BillTempletBodyVO billtemplet=Bitem.getTempletBodyVO();
 		    			    	
-		    	if(Bitem.isShow()){
 		        	
 			    	itemjson.put("ItemShowName", Bitem.getCaption());
 			    	itemjson.put("ItemKey", Bitem.getKey());
@@ -326,7 +325,7 @@ public class MobileApproveServiceImpl implements IMobileApproveService {
 			    	itemjson.put("ShowOrder", billtemplet.getShoworder());
 			    	
 			    	bodyjsonarry.put(itemjson);
-		    	}
+		    	
 		}
 	    	
 	    

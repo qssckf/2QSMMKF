@@ -27,12 +27,20 @@ public class BomChVO extends SuperVO implements IAppendableVO,Comparable<Object>
 	private java.lang.String munitid;
 	private java.lang.String qunitid;
 	private UFDouble itemnum;
+	private java.lang.String cbomid;
 	private java.lang.String cbomversion;
 	private java.lang.String itemmemo;
 	private Integer bomlevel;
 	private java.lang.String kz;
 	private java.lang.String ys;
 	private java.lang.String rate;
+	
+	public java.lang.String getCbomid() {
+		return cbomid;
+	}
+	public void setCbomid(java.lang.String cbomid) {
+		this.cbomid = cbomid;
+	}
 	
 	public java.lang.String getRate() {
 		return rate;

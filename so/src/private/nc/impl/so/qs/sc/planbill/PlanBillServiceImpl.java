@@ -158,7 +158,7 @@ public class PlanBillServiceImpl implements IPlanBillSerive{
 	public SuperVO[] queryBomChildren(String bomid, String pk_org) throws BusinessException {
 		// TODO 自动生成的方法存根
 		
-		String sql="select hcmaterialid pk_materail,parentmatcode,parentmatname,matercode,matername,cbomversion,materspec,matertype,level bomlevel,munit,nitemnum itemnum,vnote itemmemo,munitid,qunitid,c_materail,rate from ";
+		String sql="select hcmaterialid pk_materail,parentmatcode,parentmatname,matercode,matername,vitemversion cbomid,cbomversion,materspec,matertype,level bomlevel,munit,nitemnum itemnum,vnote itemmemo,munitid,qunitid,c_materail,rate from ";
 		sql=sql+"(select a.pk_org,b.cbom_bid,a.cbomid,a.hcmaterialid ,mar.code parentmatcode,mar.name parentmatname,a.hversion,b.vitemversion,bbom.hversion cbomversion,b.cmaterialid,cmar.code matercode,cmar.name matername,cmar.materialspec materspec,cmar.materialtype matertype,unit.name munit,b.nitemnum,b.vnote,b.cmeasureid munitid,b.cassmeasureid qunitid,b.cmaterialid c_materail,b.vfree1 kz,b.vfree2 ys,b.vchangerate rate ";
 		sql=sql+"from bd_bom a ";
 		sql=sql+"inner join bd_bom_b b on a.cbomid=b.cbomid ";

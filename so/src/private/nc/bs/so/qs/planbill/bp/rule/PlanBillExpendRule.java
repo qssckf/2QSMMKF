@@ -127,7 +127,7 @@ public class PlanBillExpendRule extends BatchDocBaseDAO implements IRule{
 						pbbb.setPk_customer(vo.getPk_customer());
 						pbbb.setEndcustomer(vo.getEndcustomer());
 						pbbb.setPk_material(boms[i-1].getC_materail());
-						pbbb.setBomid(boms[i-1].getCbomversion());
+						pbbb.setBomid(boms[i-1].getCbomid());
 						pbbb.setVfree1(boms[i-1].getKz());
 						pbbb.setVfree2(boms[i-1].getYs());
 						pbbb.setUnit(boms[i-1].getMunitid());

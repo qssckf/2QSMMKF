@@ -736,21 +736,27 @@
 		<property name="params">
 			<list>
 				<bean class="nc.ui.uif2.editor.UserdefQueryParam">
-					<property name="mdfullname" value="pd.pd_wk" />
+					<property name="mdfullname" value="so.MaschineVO" />
 					<property name="pos" value="0" />
-					<property name="prefix" value="vdef" />
+					<property name="prefix" value="def" />
 				</bean>
 				<bean class="nc.ui.uif2.editor.UserdefQueryParam">
-					<property name="mdfullname" value="pd.pd_wk_wip" />
+					<property name="mdfullname" value="so.MachineMater" />
 					<property name="pos" value="1" />
-					<property name="prefix" value="vdef" />
-					<property name="tabcode" value="wip_items" />
+					<property name="prefix" value="def" />
+					<property name="tabcode" value="mater" />
 				</bean>
 				<bean class="nc.ui.uif2.editor.UserdefQueryParam">
-					<property name="mdfullname" value="pd.pd_wk_prodinv" />
+					<property name="mdfullname" value="so.MachineCustomer" />
 					<property name="pos" value="1" />
-					<property name="prefix" value="vdef" />
-					<property name="tabcode" value="prodinv_items" />
+					<property name="prefix" value="def" />
+					<property name="tabcode" value="cust" />
+				</bean>
+				<bean class="nc.ui.uif2.editor.UserdefQueryParam">
+					<property name="mdfullname" value="so.MachineDept" />
+					<property name="pos" value="1" />
+					<property name="prefix" value="def" />
+					<property name="tabcode" value="dept" />
 				</bean>
 			</list>
 		</property>
@@ -761,21 +767,27 @@
 		<property name="params">
 			<list>
 				<bean class="nc.ui.uif2.editor.UserdefQueryParam">
-					<property name="mdfullname" value="pd.pd_wk" />
+					<property name="mdfullname" value="so.MaschineVO" />
 					<property name="pos" value="0" />
-					<property name="prefix" value="vdef" />
+					<property name="prefix" value="def" />
 				</bean>
 				<bean class="nc.ui.uif2.editor.UserdefQueryParam">
-					<property name="mdfullname" value="pd.pd_wk_wip" />
+					<property name="mdfullname" value="so.MachineMater" />
 					<property name="pos" value="1" />
-					<property name="prefix" value="vdef" />
-					<property name="tabcode" value="wip_items" />
+					<property name="prefix" value="def" />
+					<property name="tabcode" value="mater" />
 				</bean>
 				<bean class="nc.ui.uif2.editor.UserdefQueryParam">
-					<property name="mdfullname" value="pd.pd_wk_prodinv" />
+					<property name="mdfullname" value="so.MachineCustomer" />
 					<property name="pos" value="1" />
-					<property name="prefix" value="vdef" />
-					<property name="tabcode" value="prodinv_items" />
+					<property name="prefix" value="def" />
+					<property name="tabcode" value="cust" />
+				</bean>
+				<bean class="nc.ui.uif2.editor.UserdefQueryParam">
+					<property name="mdfullname" value="so.MachineDept" />
+					<property name="pos" value="1" />
+					<property name="prefix" value="def" />
+					<property name="tabcode" value="dept" />
 				</bean>
 			</list>
 		</property>
@@ -786,13 +798,16 @@
 		<property name="params">
 			<list>
 				<bean class="nc.ui.uif2.userdefitem.QueryParam">
-					<property name="mdfullname" value="pd.pd_wk" />
+					<property name="mdfullname" value="so.MaschineVO" />
 				</bean>
 				<bean class="nc.ui.uif2.userdefitem.QueryParam">
-					<property name="mdfullname" value="pd.pd_wk_wip" />
+					<property name="mdfullname" value="so.MachineMater" />
 				</bean>
 				<bean class="nc.ui.uif2.userdefitem.QueryParam">
-					<property name="mdfullname" value="pd.pd_wk_prodinv" />
+					<property name="mdfullname" value="so.MachineCustomer" />
+				</bean>
+				<bean class="nc.ui.uif2.userdefitem.QueryParam">
+					<property name="mdfullname" value="so.MachineDept" />
 				</bean>
 				<bean class="nc.ui.uif2.userdefitem.QueryParam">
 					<property name="rulecode" value="materialassistant" />

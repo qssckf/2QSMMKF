@@ -381,7 +381,7 @@
 				<ref bean="commitMenuAction" />
 				<ref bean="auditMenuAction" />
 				<ref bean="separatorAction" />
-				<ref bean="linkQueryAction" />
+				<!-- <ref bean="linkQueryAction" /> -->
 				<ref bean="separatorAction" />
 				<ref bean="printMenuAction" />
 				<ref bean="separatorAction" />
@@ -409,7 +409,7 @@
 				<ref bean="commitMenuAction" />
 				<ref bean="auditMenuAction" />
 				<ref bean="separatorAction" />
-				<ref bean="linkQueryAction" />
+				<!--<ref bean="linkQueryAction" /> -->
 				<ref bean="separatorAction" />
 				<ref bean="printMenuAction" />
 				<ref bean="separatorAction" />
@@ -697,10 +697,10 @@
 	</bean>
 	     
 	<!-- 联查单据 -->
-	<bean id="linkQueryAction" class="nc.ui.pubapp.uif2app.actions.LinkQueryAction">
-		<property name="model" ref="manageAppModel" />
-		<property name="billType" value="FQ01" />
-	</bean>
+	<!--<bean id="linkQueryAction" class="nc.ui.pubapp.uif2app.actions.LinkQueryAction">-->
+		<!--<property name="model" ref="manageAppModel" />-->
+		<!--<property name="billType" value="FQ01" />-->
+	<!--</bean>-->
 			<!-- 查看审批流 -->
 	<bean id="queryAuditFlowAction" class="nc.ui.pubapp.uif2app.actions.pflow.PFApproveStatusInfoAction">
 	<property name="billType" value="FQ01" />

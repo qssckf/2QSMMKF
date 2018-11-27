@@ -205,9 +205,10 @@ public class MaschineMaintainImpl implements IMaschineMaintain {
 			
 //			retobj.put("list", json1);
 						
-		}else{
-			throw new BusinessException("错误数据，未查询到这个数据！");
 		}
+//		else{
+//			throw new BusinessException("错误数据，未查询到这个数据！");
+//		}
 			
 		return retobj;
 	}

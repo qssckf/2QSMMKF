@@ -103,7 +103,7 @@ public class ShipmentsInfoMaintainImpl extends AceShipmentsInfoPubServiceImpl im
 		  String pk_group = BSContext.getInstance().getGroupID();
 		  sqlbuild.append(maintablename + ".pk_group", pk_group);
 		  sqlbuild.append(" and ");
-		  sqlbuild.append(maintablename + ".fstatusflag", BillStatus.AUDIT.getIntValue());
+		  sqlbuild.append(maintablename + ".fstatusflag", "1");
 		  
 		  String chidtable = processor.getTableAliasOfAttribute("so_shipmentsb.blineclose");
 		  sqlbuild.append(" and ");
@@ -115,7 +115,7 @@ public class ShipmentsInfoMaintainImpl extends AceShipmentsInfoPubServiceImpl im
 		  processor.appendWhere(sqlbuild.toString());
 		  processor.appendRefTrantypeWhere("FQ01", SOBillType.Order.getCode(), "transtype");
 		
-		  String ordersql = createPreOrderSql(queryScheme);
+		  String ordersql = createOrderSql(queryScheme);
 		  
 		  SchemeViewQuery<ShipmentsViewVO> query = new SchemeViewQuery(ShipmentsViewVO.class);
 		  ShipmentsViewVO[] views=(ShipmentsViewVO[])query.query(queryScheme, ordersql);

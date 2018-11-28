@@ -1579,7 +1579,7 @@ public class MobileApproveServiceImpl implements IMobileApproveService {
 		List<String> memo=new ArrayList();
 		
 		UFDouble o=new UFDouble(defratio.getValue()).multiply(new UFDouble(deftax.getValue())).add(1);
-		String Oformula="(1+"+defratio.getValue()+"%*"+deftax.getValue()+")";
+		String Oformula="(1+"+defratio.getValue()+"*"+deftax.getValue()+")";
 		
 		if(bominfomap.containsKey(key)){
 			

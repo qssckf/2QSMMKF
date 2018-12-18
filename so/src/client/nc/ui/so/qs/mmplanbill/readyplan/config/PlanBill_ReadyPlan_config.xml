@@ -86,6 +86,7 @@
 		<property name="actions">
 			<list>
 				<ref bean="editAction" />
+				<ref bean="printMenuAction" />
 			</list>
 		</property>
 		<property name="editActions">
@@ -206,6 +207,38 @@
 	<bean id="loadAction" class="nc.ui.so.qs.mmplanbill.readyplan.actions.LoadMachineAction">
 		<property name="model" ref="MachineModel" />
 		<property name="billform" ref="RdMmCard" />
+	</bean>
+	
+	<!-- 打印 -->
+	<bean id="printAction" class="nc.ui.pubapp.uif2app.actions.MetaDataBasedPrintAction">
+		<property name="preview" value="false" />
+		<property name="model" ref="RdModel" />
+		<property name="nodeKey" value="pc" />
+	</bean>
+	
+	<!-- 预览 -->
+	<bean id="previewAction" class="nc.ui.pubapp.uif2app.actions.MetaDataBasedPrintAction">
+		<property name="preview" value="true" />
+		<property name="model" ref="RdModel" />
+		<property name="nodeKey" value="pc" />
+	</bean>
+	
+	<!-- 打印按钮组 -->
+	<bean id="printMenuAction" class="nc.funcnode.ui.action.GroupAction">
+		<property name="code" value="printMenuAction" />
+		<property name="name">
+			<bean class="nc.ui.uif2.I18nFB">
+			  	<property name="resDir" value="common"></property>
+				<property name="resId" value="UC001-0000007"></property>
+				<property name="defaultValue" value="打印"></property>
+			</bean>
+		</property>
+		<property name="actions">
+			<list>
+				<ref bean="printAction" />
+				<ref bean="previewAction" />
+			</list>
+		</property>
 	</bean>
 	
 	<!-- 保存组合校验 -->

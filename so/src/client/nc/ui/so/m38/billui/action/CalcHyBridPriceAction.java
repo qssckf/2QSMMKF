@@ -311,7 +311,11 @@ public class CalcHyBridPriceAction extends NCAsynAction{
 		bominfomap=this.getPlanService().querBominfoByHybridPrice(this.getPk_org(), this.getMatpk());
 		cusmap = this.getPlanService().querCusPriceByHybridPrice(this.getPk_org(), this.getDefcus());
 		
-
+		if(cusmap.isEmpty()){
+			
+//			cusmap=new HashMap();
+			throw new BusinessException("混合料单价维护错误！");
+		}
 		
 		IKeyValue keyValue = new CardKeyValue(this.editor.getBillCardPanel());
 		int row=this.getEditor().getBillCardPanel().getRowCount();
@@ -335,7 +339,7 @@ public class CalcHyBridPriceAction extends NCAsynAction{
 			List<String> memo=new ArrayList();
 			
 			UFDouble o=this.getDefratio().multiply(this.getDeftax()).add(1);
-			String Oformula="(1+"+this.getDefratio()+"%*"+this.getDeftax()+")";
+			String Oformula="(1+"+this.getDefratio()+"*"+this.getDeftax()+")";
 			
 			if(bominfomap.containsKey(key)){
 				
@@ -347,17 +351,17 @@ public class CalcHyBridPriceAction extends NCAsynAction{
 					
 					if(cusdjmap.containsKey(hhfl)){
 						
-						p=p.add(NumMap.get(hhfl).multiply(cusdjmap.get(hhfl)).multiply(nnum));
+						p=p.add(NumMap.get(hhfl).multiply(cusdjmap.get(hhfl)));
 						
-						String formula="[Num]"+nnum+"*[HfPrice]"+NumMap.get(hhfl)+"*[CusDj]"+cusdjmap.get(hhfl);
+						String formula="[HfPrice]"+NumMap.get(hhfl)+"*[CusDj]"+cusdjmap.get(hhfl);
 						
 						memo.add(formula);
 						
 					}else{
 						
-						p=p.add(NumMap.get(hhfl).multiply(UFDouble.ZERO_DBL).multiply(nnum));
+						p=p.add(NumMap.get(hhfl).multiply(UFDouble.ZERO_DBL));
 						
-						String formula="[Num]"+nnum+"*[HfPrice]"+NumMap.get(hhfl)+"*[CusDj]0";
+						String formula="[HfPrice]"+NumMap.get(hhfl)+"*[CusDj]0";
 						
 						memo.add(formula);
 						

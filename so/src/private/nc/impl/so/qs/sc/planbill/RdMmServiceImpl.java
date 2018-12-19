@@ -1,12 +1,18 @@
 package nc.impl.so.qs.sc.planbill;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.Map.Entry;
 
 import nc.bs.bd.bp.utils.MDQueryUtil;
 import nc.bs.dao.BaseDAO;
 import nc.bs.dao.DAOException;
+import nc.bs.framework.common.NCLocator;
+import nc.bs.mmpac.pmo.pac0002.bp.PMOInsertBP;
 import nc.bs.so.qs.sc.readyplan.bp.RdDeleteBP;
 import nc.bs.so.qs.sc.readyplan.bp.RdInsertBP;
 import nc.bs.so.qs.sc.readyplan.bp.RdMakePMOBP;
@@ -14,16 +20,26 @@ import nc.bs.so.qs.sc.readyplan.bp.RdReleaseBP;
 import nc.bs.so.qs.sc.readyplan.bp.RdReturnPMOBP;
 import nc.bs.so.qs.sc.readyplan.bp.RdUpdateBp;
 import nc.hr.frame.persistence.AppendBeanArrayProcessor;
+import nc.itf.mmpps.plo.IPloReleaseService;
 import nc.itf.so.qs.sc.planbill.service.IRdMmService;
-import nc.bs.mmpac.pmo.pac0002.bp.PMOInsertBP;
-import nc.bs.mmpac.pmo.pac0002.bp.util.PMOBPCalUtil;
+import nc.pubitf.mmpac.pmo.pps.IPublicPMOService4PPS;
+import nc.util.mmf.busi.measure.MeasureHelper;
+import nc.util.mmf.busi.measure.NumScaleUtil;
+import nc.util.mmf.busi.service.MaterialPubService;
 import nc.util.mmf.framework.base.MMArrayUtil;
+import nc.util.mmf.framework.base.MMNumberUtil;
+import nc.util.mmf.framework.base.MMValueCheck;
+import nc.vo.bd.material.plan.MaterialPlanVO;
 import nc.vo.bd.pub.sqlutil.BDSqlInUtil;
 import nc.vo.mmpac.pmo.pac0002.entity.PMOAggVO;
+import nc.vo.mmpac.pmo.pac0002.entity.PMOItemMeasureParam;
+import nc.vo.mmpac.pmo.pac0002.entity.PMOItemVO;
 import nc.vo.pub.BusinessException;
 import nc.vo.pub.SuperVO;
+import nc.vo.pub.lang.UFDouble;
 import nc.vo.pubapp.pattern.exception.ExceptionUtils;
 import nc.vo.pubapp.pattern.pub.MapList;
+import nc.vo.pubapp.pattern.pub.MapSet;
 import nc.vo.so.qs.sc.MmPlanBillVO;
 import nc.vo.so.qs.sc.RdPorductDetailVO;
 import nc.vo.so.qs.sc.planbill.readyplan.PmoViewVO;
@@ -112,6 +128,86 @@ public class RdMmServiceImpl implements IRdMmService{
 		
 
 	}
+	
+	public static UFDouble numberOfInputs(UFDouble outputNum, MaterialPlanVO mp)
+	{
+	  UFDouble coefficient = null;
+	  UFDouble one = new UFDouble(1);
+	  if ((MMValueCheck.isEmpty(mp)) || (mp.getWasterrate() == null)) {
+	    coefficient = UFDouble.ZERO_DBL;
+	  }
+	  else {
+	    coefficient = new UFDouble(mp.getWasterrate());
+	  }
+	  one = one.sub(coefficient);
+	  
+	  return outputNum.div(one);
+	}
+	
+	public void fillNumberByNum(PMOAggVO[] aggvos)
+	{
+	     Map<String, MaterialPlanVO> resultMaps = new HashMap();
+	     
+	     getWasterrate(aggvos, resultMaps);
+	     for (PMOAggVO aggvo : aggvos) {
+	       PMOItemVO[] itemvos = (PMOItemVO[])aggvo.getChildren(PMOItemVO.class);
+	       for (PMOItemVO itemvo : itemvos)
+	       {
+	         UFDouble nNum = numberOfInputs(itemvo.getNnum(), (MaterialPlanVO)resultMaps.get(itemvo.getCmaterialvid() + aggvo.getParentVO().getPk_org()));
+	         
+	 
+	         nNum = new NumScaleUtil().calNumScale(nNum, itemvo.getCunitid());
+	         if ((MMNumberUtil.isEqualZero(itemvo.getNastnum())) || (MMValueCheck.isEmpty(itemvo.getNastnum())))
+	         {
+	           PMOItemMeasureParam param = new PMOItemMeasureParam();
+	           MeasureHelper.fillAssNumber(itemvo, param, "nnum", "nastnum");
+	         }
+	         MaterialPlanVO materPlanvo = (MaterialPlanVO)resultMaps.get(itemvo.getCmaterialvid() + aggvo.getParentVO().getPk_org());
+	         if ((!MMValueCheck.isEmpty(materPlanvo)) && (!MMValueCheck.isEmpty(materPlanvo.getWasterrate()))) {
+	           itemvo.setNrwxis(materPlanvo.getWasterrate());
+	         }
+	         else {
+	           itemvo.setNrwxis(UFDouble.ZERO_DBL);
+	         }
+	         
+	         itemvo.setNplanputnum(nNum);
+	         
+	         itemvo.setNmmnum(itemvo.getNnum());
+	         itemvo.setNmmastnum(itemvo.getNastnum());
+	         if (MMNumberUtil.isEqual(nNum, itemvo.getNnum()))
+	         {
+	           itemvo.setNplanputastnum(itemvo.getNastnum());
+	         }
+	         else
+	         {
+	           PMOItemMeasureParam param = new PMOItemMeasureParam();
+	           MeasureHelper.fillAssNumber(itemvo, param, "nplanputnum", "nplanputastnum");
+	         }
+	       }
+	     }
+	   }
+	
+	private void getWasterrate(PMOAggVO[] aggvos, Map<String, MaterialPlanVO> resultMaps)
+	{
+	  MapSet<String, String> materialVid = new MapSet();
+	  for (PMOAggVO aggvo : aggvos) {
+	    PMOItemVO[] itemvos = (PMOItemVO[])aggvo.getChildren(PMOItemVO.class);
+	    for (PMOItemVO itemvo : itemvos) {
+	      materialVid.put(aggvo.getParentVO().getPk_org(), itemvo.getCmaterialvid());
+	    }
+	  }
+	  
+	  for (Iterator i$ = materialVid.entrySet().iterator(); i$.hasNext();) { 
+	
+		Entry set = (Map.Entry)i$.next();
+	    
+	    Map<String, MaterialPlanVO> resultMap = MaterialPubService.queryMaterialPlanInfoByPks((String[])((Set)set.getValue()).toArray(new String[0]), (String)set.getKey(), new String[] { "wasterrate" });
+	    
+	    for (Map.Entry<String, MaterialPlanVO> result : resultMap.entrySet())
+	      resultMaps.put((String)result.getKey() + (String)set.getKey(), result.getValue());
+	  }
+	  Map.Entry<String, Set<String>> set;
+	}
 
 	@Override
 	public PMOAggVO[] pushPMO(PMOAggVO[] aggvos) throws BusinessException {
@@ -120,12 +216,14 @@ public class RdMmServiceImpl implements IRdMmService{
 		
 		try{
 			
+			IPublicPMOService4PPS ploservice=(IPublicPMOService4PPS)NCLocator.getInstance().lookup(IPublicPMOService4PPS.class);
+			
 			if (MMArrayUtil.isEmpty(aggvos)) {
 			     return null;
 			}
 			
 			MapList<String, PMOAggVO> mapAggvo = new MapList();
-			PMOBPCalUtil.fillNumberByNum(aggvos);
+			fillNumberByNum(aggvos);
 			
 			for (PMOAggVO aggvo : aggvos) {
 				
@@ -137,7 +235,7 @@ public class RdMmServiceImpl implements IRdMmService{
 		     
 		    for (Entry<String, List<PMOAggVO>> set : mapAggvo.entrySet()){
 		    	
-		    	PMOAggVO[] aggs=new PMOInsertBP().pushInsert((PMOAggVO[])((List)set.getValue()).toArray(new PMOAggVO[0]), false, "PPS");
+		    	PMOAggVO[] aggs = ploservice.RdpushMO((PMOAggVO[])((List)set.getValue()).toArray(new PMOAggVO[0]));
 		    	
 		    	for(PMOAggVO agg:aggs){
 		    		

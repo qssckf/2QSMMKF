@@ -17,7 +17,6 @@ import org.apache.commons.lang.ArrayUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import nc.bill.data.access.GetMeteDataRelationItemVaule;
 import nc.bs.framework.common.InvocationInfoProxy;
 import nc.bs.framework.common.NCLocator;
@@ -52,6 +51,7 @@ import nc.md.model.IBusinessEntity;
 import nc.md.model.MetaDataException;
 import nc.md.persist.framework.IMDPersistenceQueryService;
 import nc.md.persist.framework.MDPersistenceService;
+import nc.qs.so.app.pubapp.pub.common.context.PFlowContext;
 import nc.ui.pf.multilang.PfMultiLangUtil;
 import nc.ui.pf.pub.PFClientBizRetObj;
 import nc.ui.pf.workitem.ApproveFlowDispatchDialog;
@@ -59,7 +59,6 @@ import nc.ui.pub.beans.constenum.DefaultConstEnum;
 import nc.ui.pub.beans.constenum.IConstEnum;
 import nc.ui.pub.bill.BillItem;
 import nc.ui.pubapp.AppUiContext;
-import nc.ui.pubapp.pub.common.context.PFlowContext;
 import nc.vo.bd.cust.saleinfo.CustsaleVO;
 import nc.vo.bd.material.MaterialConvertVO;
 import nc.vo.bd.pub.BDCacheQueryUtil;
@@ -238,6 +237,60 @@ public class MobileApproveServiceImpl implements IMobileApproveService {
 		bodyNotNull.add("nnum");
 		bodyNotNull.add("vbdef11");
 		bodyNotNull.add("vbdef12");
+		bodyNotNull.add("blargessflag");
+		bodyNotNull.add("blineclose");
+		bodyNotNull.add("btriatradeflag");
+		bodyNotNull.add("carorgid");
+		bodyNotNull.add("carorgvid");
+		bodyNotNull.add("castunitid");
+		bodyNotNull.add("ccurrencyid");
+		bodyNotNull.add("corigcurrencyid");
+		bodyNotNull.add("cqtunitid");
+		bodyNotNull.add("crececountryid");
+		bodyNotNull.add("creceivecustid");
+		bodyNotNull.add("crowno");
+		bodyNotNull.add("csendcountryid");
+		bodyNotNull.add("csendstockorgid");
+		bodyNotNull.add("csendstockorgvid");
+		bodyNotNull.add("csettleorgid");
+		bodyNotNull.add("csettleorgvid");
+		bodyNotNull.add("ctaxcodeid");
+		bodyNotNull.add("ctaxcountryid");
+		bodyNotNull.add("cunitid");
+		bodyNotNull.add("dbilldate");
+		bodyNotNull.add("dreceivedate");
+		bodyNotNull.add("fbuysellflag");
+		bodyNotNull.add("ftaxtypeflag");
+		bodyNotNull.add("ncaltaxmny");
+		bodyNotNull.add("ndiscountrate");
+		bodyNotNull.add("nexchangerate");
+		bodyNotNull.add("nitemdiscountrate");
+		bodyNotNull.add("nmny");
+		bodyNotNull.add("nnetprice");
+		bodyNotNull.add("norigmny");
+		bodyNotNull.add("norignetprice");
+		bodyNotNull.add("norigprice");
+		bodyNotNull.add("norigtaxmny");
+		bodyNotNull.add("norigtaxnetprice");
+		bodyNotNull.add("norigtaxprice");
+		bodyNotNull.add("nprice");
+		bodyNotNull.add("nqtnetprice");
+		bodyNotNull.add("nqtorignetprice");
+		bodyNotNull.add("nqtorigprice");
+		bodyNotNull.add("nqtorigtaxnetprc");
+		bodyNotNull.add("nqtorigtaxprice");
+		bodyNotNull.add("nqtprice");
+		bodyNotNull.add("nqttaxnetprice");
+		bodyNotNull.add("nqttaxprice");
+		bodyNotNull.add("nqtunitnum");
+		bodyNotNull.add("ntax");
+		bodyNotNull.add("ntaxmny");
+		bodyNotNull.add("ntaxnetprice");
+		bodyNotNull.add("ntaxprice");
+		bodyNotNull.add("ntaxrate");
+		bodyNotNull.add("vchangerate");
+		bodyNotNull.add("vfree1");
+		bodyNotNull.add("vqtunitrate");
 
 		if(StringUtil.isEmpty(pk_group)||StringUtil.isEmpty(userid)||StringUtil.isEmpty(billtype)){
 			throw new BusinessException("集团、用户、单据类型不能为空！");
@@ -267,6 +320,15 @@ public class MobileApproveServiceImpl implements IMobileApproveService {
 		IBillTemplateQry qry = (IBillTemplateQry)NCLocator.getInstance().lookup(IBillTemplateQry.class.getName());
 	     
 	    BillTempletVO vo = qry.findTempletData(templateid);
+	    
+	    JSONObject dritemjson=new JSONObject();
+	    dritemjson.put("ItemShowName", "dr");
+	    dritemjson.put("ItemKey", "dr");
+	    dritemjson.put("DataType",6);
+	    dritemjson.put("IsShow", false);
+	    dritemjson.put("IsNull", false);
+	    dritemjson.put("IsEdit",false);
+	    dritemjson.put("ShowOrder", 9999);
 	    
 	    if(vo==null){
 	    	throw new BusinessException("没有找到单据类型对应的模板！");
@@ -300,9 +362,11 @@ public class MobileApproveServiceImpl implements IMobileApproveService {
 		    	headjsonarry.put(itemjson);
 	    		
 	    	}
-	    	
 	 
 	    }
+	    
+	    headjsonarry.put(dritemjson);
+	    
 	    
 	    JSONArray bodyjsonarry=new JSONArray();
 	    
@@ -327,9 +391,8 @@ public class MobileApproveServiceImpl implements IMobileApproveService {
 			    	bodyjsonarry.put(itemjson);
 		    	
 		}
+	    bodyjsonarry.put(dritemjson);
 	    	
-	    
-	    
 	    retobj.put("BillHeadMeta", headjsonarry);
 	    retobj.put("BillBodyMeta", bodyjsonarry);
 	    
@@ -537,13 +600,39 @@ public class MobileApproveServiceImpl implements IMobileApproveService {
 		  
 		  try{
 	       PfUtilTools.approveSilently(billtype, billid, result, note, userid, assigned);
-	     } catch (Exception e) {
+		  } catch (Exception e) {
 	    	 ExMobileAppUtil.handleException(e);
-	     }
+		  }
+		  
+		  String pushUser="";
+		  
+		  String sql="select billid from pub_workflownote where pk_checkflow='"+taskid+"'";
+		  
+		  IRowSet row=this.getDao().query(sql);
+		  
+		  if(row.next()){
+			  
+			  sql="select checkman from pub_workflownote where billid='"+row.getString(0)+"' and workflow_type in (2, 3, 6) and approvestatus=0";
+			  
+			  IRowSet row1=this.getDao().query(sql);
+			  
+			  while(row1.next()){
+				  
+				  if(pushUser == ""){
+					  pushUser=row1.getString(0);
+				  }else{
+					  pushUser = pushUser + "," + row1.getString(0);
+				  }
+				  
+			  }
+			  	  
+		  }else{
+			  throw new BusinessException("根据工作ID没有找到单据ID不能找到推送人");
+		  }
 		  
 		  HashMap<String, Object> retobj=ExMobileAppUtil.createHashMap();
 		  
-		  retobj.put("appresult", "successed");
+		  retobj.put("appresult", pushUser);
 	     
 		  return retobj;
 	}
@@ -1070,12 +1159,14 @@ public class MobileApproveServiceImpl implements IMobileApproveService {
 		
 		PreOrderVO pre=ConvertJson2VO(prejson,billstatus);
 		
+		
+		
 		PFlowContext pfcontext=new PFlowContext();
 		  
 		pfcontext.setActionName("WRITE");
 		
 		pfcontext.setBillType("38");
-		
+			
 		Object ret=procFlow(pfcontext,billstatus,pre);
 		
 		if(ret instanceof PreOrderVO[]){
@@ -1171,8 +1262,9 @@ public class MobileApproveServiceImpl implements IMobileApproveService {
 	public Object procFlow(PFlowContext context,String billstatus,AbstractBill sale) throws BusinessException {
 		  
 		  Object retObj=null;
-		  
+		  	  
 		  fillUpContext(context,billstatus,sale);
+		  
 		  
 		  if (context.getBillVos() == null) {
 			  throw new BusinessException("没有获取到保存对象，保存失败！");
@@ -1425,6 +1517,8 @@ public class MobileApproveServiceImpl implements IMobileApproveService {
 			JSONObject headinfo=jsonData.getJSONObject("head");
 			
 			JSONArray bodyinfos=jsonData.getJSONArray("body");
+			
+//			throw new BusinessException("错误的单据实体类");
 			
 			PreOrderHVO parent=new PreOrderHVO();
 			

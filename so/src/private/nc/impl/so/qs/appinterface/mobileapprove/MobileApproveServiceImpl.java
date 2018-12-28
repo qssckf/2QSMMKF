@@ -349,19 +349,19 @@ public class MobileApproveServiceImpl implements IMobileApproveService {
 	    	
 	    	BillTempletBodyVO billtemplet=item.getTempletBodyVO();
 	    	
-	    	if(item.isShow()){
+	    	
 	    		
-	    	   	itemjson.put("ItemShowName", item.getCaption());
-		    	itemjson.put("ItemKey", item.getKey());
-		    	itemjson.put("DataType", item.getDataType());
-		    	itemjson.put("IsShow", item.isShow());
-		    	itemjson.put("IsNull", headNotNull.contains(item.getKey())?false:true);
-		    	itemjson.put("IsEdit",billtemplet.getEditflag());
-		    	itemjson.put("ShowOrder", billtemplet.getShoworder());
+	    	itemjson.put("ItemShowName", item.getCaption());
+		    itemjson.put("ItemKey", item.getKey());
+		    itemjson.put("DataType", item.getDataType());
+		    itemjson.put("IsShow", item.isShow());
+		    itemjson.put("IsNull", headNotNull.contains(item.getKey())?false:true);
+		    itemjson.put("IsEdit",billtemplet.getEditflag());
+		    itemjson.put("ShowOrder", billtemplet.getShoworder());
 		    	
-		    	headjsonarry.put(itemjson);
+		    headjsonarry.put(itemjson);
 	    		
-	    	}
+	    	
 	 
 	    }
 	    

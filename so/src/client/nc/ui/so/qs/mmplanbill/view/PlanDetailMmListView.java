@@ -2,6 +2,12 @@ package nc.ui.so.qs.mmplanbill.view;
 
 import java.util.Collection;
 
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
+
 import org.apache.commons.lang.StringUtils;
 
 import nc.bs.framework.common.NCLocator;
@@ -17,12 +23,16 @@ import nc.ui.pf.change.PfUtilUITools;
 import nc.ui.pf.pub.PfUIDataCache;
 import nc.ui.pub.bill.BillItemHyperlinkEvent;
 import nc.ui.pub.bill.BillItemHyperlinkListener;
+import nc.ui.pub.bill.BillListPanel;
+import nc.ui.pub.bill.table.BillTableBooleanCellRenderer;
 import nc.ui.pub.linkoperate.ILinkQueryData;
 import nc.ui.pub.msg.PfLinkData;
 import nc.ui.pubapp.uif2app.view.ShowUpableBillListView;
 import nc.ui.sm.power.FuncRegisterCacheAccessor;
+import nc.ui.so.qs.mmplanbill.model.IntoProdManageAppModel;
 import nc.ui.so.qs.mmplanbill.model.PlanDetailMManageAppModel;
 import nc.ui.so.qs.mmplanbill.model.PlanDetailManageAppModel;
+import nc.ui.so.qs.mmplanbill.process.view.BomVersionTableCellRenderer;
 import nc.ui.so.qs.mmplanbill.readyplan.model.PlanDetailPara;
 import nc.ui.so.qs.pub.tools.ScreenTools;
 import nc.ui.uif2.ShowStatusBarMsgUtil;
@@ -31,23 +41,26 @@ import nc.vo.mmpac.pmo.pac0002.entity.PMOHeadVO;
 import nc.vo.pub.BusinessException;
 import nc.vo.pub.SuperVO;
 import nc.vo.pub.billtype.BilltypeVO;
+import nc.vo.pubapp.pattern.exception.ExceptionUtils;
 import nc.vo.sm.funcreg.FuncRegisterVO;
+import nc.vo.so.qs.sc.IntoProdDetailVO;
 import nc.vo.so.qs.sc.PlanProduceDetailVO;
 import nc.vo.so.qs.sc.RdPorductDetailVO;
 
-public class PlanDetailMmListView extends ShowUpableBillListView{
+public class PlanDetailMmListView extends ShowUpableBillListView implements ListSelectionListener{
 	
 	private IPlanBillSerive planservice;
-	private PlanDetailManageAppModel rdmodel;
+	private IntoProdManageAppModel rdmodel;
+	private BomVersionTableCellRenderer cellRenderer;
 	public static final String[] LinkQueryBusiActiveCodes = { "LinkQuery" };
 	private int openMode = 1;
 	
 
-	public PlanDetailManageAppModel getRdmodel() {
+	public IntoProdManageAppModel getRdmodel() {
 		return rdmodel;
 	}
 
-	public void setRdmodel(PlanDetailManageAppModel rdmodel) {
+	public void setRdmodel(IntoProdManageAppModel rdmodel) {
 		this.rdmodel = rdmodel;
 	}
 
@@ -107,7 +120,8 @@ public class PlanDetailMmListView extends ShowUpableBillListView{
 						PlanProduceDetailVO pd=PlanDetailMmListView.this.getMDQueryService().queryBillOfVOByPK(PlanProduceDetailVO.class, srcbid, false);
 						
 						//验证ts
-						PlanDetailMmListView.this.getPlanservice().validateVOTs(new SuperVO[]{pd});
+						PlanDetailMmListView.this.getPlanservice().validateVOTs(new SuperVO[]{pd,selectVo});
+						
 							
 
 						initdata.setPlanVo(selectVo);
@@ -269,9 +283,94 @@ public class PlanDetailMmListView extends ShowUpableBillListView{
 			
 		});
 		
+		initCellRenderer(this.billListPanel);
+		
+		getBillListPanel().getParentListPanel().getTable().getSelectionModel().addListSelectionListener(this);
+	}
+
+	private void initCellRenderer(BillListPanel panel) {
+		// TODO 自动生成的方法存根
+		TableColumnModel columnModel = panel.getHeadTable().getColumnModel();
+		   for (int i = 0; i < columnModel.getColumnCount(); i++) {
+		     TableColumn column = columnModel.getColumn(i);
+		     
+		     if (!(column.getCellRenderer() instanceof BillTableBooleanCellRenderer))
+		     {
+		       column.setCellRenderer(getCellRenderer());
+		     }
+		 }
+
+	}
+	
+	private BomVersionTableCellRenderer getCellRenderer()
+	{
+	     if (this.cellRenderer == null) {
+	       this.cellRenderer = new BomVersionTableCellRenderer(this.billListPanel.getHeadBillModel(), false);
+	     }
+	     
+	     return this.cellRenderer;
+	}
+	
+	
+
+	@Override
+	public void valueChanged(ListSelectionEvent e) {
+		// TODO 自动生成的方法存根
+		if (!e.getValueIsAdjusting()) {
+			 int headRow = ((ListSelectionModel)e.getSource()).getAnchorSelectionIndex();
+			 
+			
+			 
+			 if (headRow >= 0) {
+				 
+				 headStatusRowChange(headRow);
+				 
+				 getCellRenderer().setCurrentRow(headRow);
+				 
+				 headRowChange(headRow);
+
+				 
+			 }
+		 }
+	}
+	
+	private void headStatusRowChange(int headRow) {
+		// TODO 自动生成的方法存根
+		
+		int state = getBillListPanel().getParentListPanel().getTableModel().getRowState(headRow);
+		   
+		getBillListPanel().repaint();
+		if (state == -1) {
+		     getBillListPanel().getChildListPanel().cancelSelectAllTableRow();
+		     getBillListPanel().updateUI();
+		}
 		
 	}
 	
+	private void headRowChange(int headRow) {
+		// TODO 自动生成的方法存根
+		
+		try{
+			
+			String pk=(String) getBillListPanel().getParentListPanel().getTableModel().getValueAt(headRow, "pk_rdpd");
+			
+			Collection<IntoProdDetailVO> col= this.getMDQueryService().queryBillOfVOByCond(IntoProdDetailVO.class, "vsrcrdid='"+pk+"'", false);
+			
+			if(col!=null && col.size()>0){
+				
+				this.getRdmodel().initModel(col.toArray(new IntoProdDetailVO[col.size()]));
+				
+			}else{
+				
+				this.getRdmodel().initModel(null);
+			}
+			
+			
+		}catch(Exception e){
+			ExceptionUtils.wrappException(e);
+		}
+		
+	}
 	
 
 }

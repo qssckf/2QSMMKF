@@ -35,6 +35,7 @@ import nc.ui.pubapp.uif2app.model.IAppModelEx;
 import nc.ui.pubapp.uif2app.view.ShowUpableBillListView;
 import nc.ui.scmf.ic.onhand.OnhandPanelSrc;
 import nc.ui.sm.power.FuncRegisterCacheAccessor;
+import nc.ui.so.qs.mmplanbill.model.IntoProdManageAppModel;
 import nc.ui.so.qs.mmplanbill.model.PlanDetailMManageAppModel;
 import nc.ui.so.qs.mmplanbill.process.model.PlanBillProcessPara;
 import nc.ui.so.qs.mmplanbill.process.view.BomVersionTableCellRenderer;
@@ -47,6 +48,7 @@ import nc.vo.ml.NCLangRes4VoTransl;
 import nc.vo.pub.BusinessException;
 import nc.vo.pub.SuperVO;
 import nc.vo.pub.lang.UFDateTime;
+import nc.vo.pub.lang.UFDouble;
 import nc.vo.pubapp.pattern.exception.ExceptionUtils;
 import nc.vo.scmf.ic.onhand.OnhandDimParamVO;
 import nc.vo.sm.funcreg.FuncRegisterVO;
@@ -59,8 +61,17 @@ import nc.vo.util.BDVersionValidationUtil;
 public class PlanDetailListView extends ShowUpableBillListView implements ListSelectionListener,OnhandPanelSrc{
 	 
 	private PlanDetailMManageAppModel rdmodel;
+	private IntoProdManageAppModel IpModel;
 	private IPlanBillSerive planservice;
 	private BomVersionTableCellRenderer cellRenderer;
+	
+	public IntoProdManageAppModel getIpModel() {
+		return IpModel;
+	}
+
+	public void setIpModel(IntoProdManageAppModel ipModel) {
+		IpModel = ipModel;
+	}
 	
 	public IPlanBillSerive getPlanservice() {
 		
@@ -249,6 +260,8 @@ public class PlanDetailListView extends ShowUpableBillListView implements ListSe
 				retvo.setRate(vo.getVchangerate());
 				retvo.setProdnum(vo.getPlannum().sub(vo.getTotalnum()));
 				retvo.setProdnastnum(vo.getPlannastnum().sub(vo.getTotalnastuum()));
+				retvo.setTintoprodnum(UFDouble.ZERO_DBL);
+				retvo.setTintopronastnum(UFDouble.ZERO_DBL);
 				retvo.setProddate(new UFDateTime(InvocationInfoProxy.getInstance().getBizDateTime()));
 				retvo.setEnddate(new UFDateTime(InvocationInfoProxy.getInstance().getBizDateTime()));
 
@@ -339,6 +352,7 @@ public class PlanDetailListView extends ShowUpableBillListView implements ListSe
 			}else{
 				
 				this.getRdmodel().initModel(null);
+				this.getIpModel().initModel(null);
 			}
 			
 			

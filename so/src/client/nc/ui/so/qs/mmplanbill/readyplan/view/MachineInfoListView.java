@@ -87,8 +87,10 @@ public class MachineInfoListView extends ShowUpableBillListView implements ListS
 				// TODO 自动生成的方法存根
 				
 				String maid = (String) getBillListPanel().getParentListPanel().getTableModel().getValueAt(event.getRow(), "pk_maschine");
+				String machcode = (String) getBillListPanel().getParentListPanel().getTableModel().getValueAt(event.getRow(), "machcode");
 				
 				MachineInfoListView.this.getCard().getBillCardPanel().getHeadItem("pk_machine").setValue(maid);
+				MachineInfoListView.this.getCard().getBillCardPanel().getHeadItem("def2").setValue(machcode);
 				
 				
 			}

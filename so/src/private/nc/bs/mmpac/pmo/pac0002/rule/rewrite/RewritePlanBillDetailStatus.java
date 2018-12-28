@@ -3,6 +3,7 @@ package nc.bs.mmpac.pmo.pac0002.rule.rewrite;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
 import nc.bs.dao.BaseDAO;
@@ -17,6 +18,7 @@ import nc.vo.mmpac.pmo.pac0002.entity.PMOItemVO;
 import nc.vo.pub.lang.UFBoolean;
 import nc.vo.pub.lang.UFDateTime;
 import nc.vo.pubapp.pattern.exception.ExceptionUtils;
+import nc.vo.so.qs.sc.IntoProdDetailVO;
 import nc.vo.so.qs.sc.RdPorductDetailVO;
 
 public class RewritePlanBillDetailStatus implements IRule<PMOAggVO>{
@@ -50,7 +52,7 @@ public class RewritePlanBillDetailStatus implements IRule<PMOAggVO>{
 				return;
 			}
 			
-			List<String> rdid=new ArrayList();
+			HashSet<String> rdid=new HashSet();
 			
 			for (PMOAggVO aggvo : aggvos) {
 				
@@ -78,21 +80,18 @@ public class RewritePlanBillDetailStatus implements IRule<PMOAggVO>{
 			if(rdid.size()>0){
 				
 				
-				Collection<RdPorductDetailVO> cols=this.getMDQueryService().queryBillOfVOByPKs(RdPorductDetailVO.class, rdid.toArray(new String[rdid.size()]), false);
+				Collection<IntoProdDetailVO> cols=this.getMDQueryService().queryBillOfVOByPKs(IntoProdDetailVO.class, rdid.toArray(new String[rdid.size()]), false);
 				
-				for(RdPorductDetailVO col:cols){
+				for(IntoProdDetailVO col:cols){
 					
 					col.setStatus(1);
-					
-					col.setBillstatus(1);
-					col.setProcesser(null);
 					col.setSfmakebill(UFBoolean.FALSE);
-					col.setDef2(null);
+					col.setPomvbillcode(null);
 					col.setModifier(InvocationInfoProxy.getInstance().getUserId());
 					col.setModifiedtime(new UFDateTime(new Date(TimeService.getInstance().getTime())));
 					
 					
-					this.getDao().updateVO(col, new String[]{"processer","billstatus","sfmakebill","def2","modifier","modifiedtime"});
+					this.getDao().updateVO(col, new String[]{"sfmakebill","pomvbillcode","modifier","modifiedtime"});
 					
 				}
 				

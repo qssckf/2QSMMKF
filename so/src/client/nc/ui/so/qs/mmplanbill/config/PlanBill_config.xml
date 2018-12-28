@@ -21,6 +21,7 @@
 				<value>plandetailmmlist</value>
 				<value>machinelist</value>
 				<value>machinemmorder</value>
+				<value>Intoproddetaillist</value>
 			</list>
 		</property>
 	</bean>
@@ -100,6 +101,12 @@
 		<property name="context" ref="context" />
 		<property name="supportLazilyLoad" value="false"></property>
 	</bean>
+	
+	<bean id="IpManageAppModel" class="nc.ui.so.qs.mmplanbill.model.IntoProdManageAppModel">
+		<property name="businessObjectAdapterFactory" ref="boAdatorFactory" />
+		<property name="context" ref="context" />
+		<property name="supportLazilyLoad" value="false"></property>
+	</bean>
 
 	
 
@@ -167,13 +174,14 @@
 	
 	
 	<bean id="DownPlanArea" class="nc.ui.uif2.tangramlayout.node.CNode">
-		<property name="component" ref="MachineMmOrderListView" />
+		<property name="component" ref="IntoProdDetailListView" />
 	</bean>
 	
 	<bean id="PlanListView" class="nc.ui.so.qs.mmplanbill.view.PlanListView" init-method="initUI">
 		<property name="model" ref="manageAppModel" />
 		<property name="PlanDetailModel" ref="PlanDetaiManageAppModel" />
 		<property name="PlanDetailMModel" ref="PlanDetailMManageAppModel" />
+		<property name="IpModel" ref="IpManageAppModel"></property>
 		<property name="multiSelectionEnable" value="false" />
 		<property name="templateContainer" ref="templateContainer" />
 		<property name="nodekey" value="planlist" />
@@ -205,6 +213,7 @@
 	<bean id="PlanDetailListView" class="nc.ui.so.qs.mmplanbill.view.PlanDetailListView" init-method="initUI">
 		<property name="model" ref="PlanDetaiManageAppModel" />
 		<property name="rdmodel" ref="PlanDetailMManageAppModel" />
+		<property name="IpModel" ref="IpManageAppModel"></property>
 		<property name="multiSelectionEnable" value="false" />
 		<property name="templateContainer" ref="templateContainer" />
 		<property name="north" ref="listInfoPnl1"></property>
@@ -271,7 +280,7 @@
 	
 	<bean id="PlanDetailMmListView" class="nc.ui.so.qs.mmplanbill.view.PlanDetailMmListView" init-method="initUI">
 		<property name="model" ref="PlanDetailMManageAppModel" />
-		<property name="rdmodel" ref="PlanDetaiManageAppModel" />
+		<property name="rdmodel" ref="IpManageAppModel" />
 		<property name="multiSelectionEnable" value="true" />
 		<property name="templateContainer" ref="templateContainer" />
 		<property name="north" ref="listInfoPnl2"></property>
@@ -296,7 +305,9 @@
 	    		<ref bean="BrefreshAction" />
 	    		<ref bean="RdDeleteAction" />
 	    		<ref bean="RdMakeRPMOAction" />
-	    		<ref bean="RdReleaseAction" />
+	    		<ref bean="RdReturnAction" />
+	    		
+	    		<!--<ref bean="RdReleaseAction" />-->
 	    	</list>
 	    </property>
 	</bean>
@@ -315,8 +326,30 @@
 		<property name="model" ref="PlanDetailMManageAppModel"></property>
 	</bean>
 	
+	<bean id="RdReturnAction" class="nc.ui.so.qs.mmplanmmdetail.actions.RdReturnAction">
+		<property name="model" ref="PlanDetailMManageAppModel"></property>
+	</bean>
+	
+	
 	<bean id="RdMakeRPMOAction" class="nc.ui.so.qs.mmplanmmdetail.actions.RdMakeRPMOAction">
 		<property name="model" ref="PlanDetailMManageAppModel"></property>
+	</bean>
+	
+	<bean id="IntoProdDetailListView" class="nc.ui.so.qs.mmplanbill.view.IntoProdDetailListView" init-method="initUI">
+		<property name="model" ref="IpManageAppModel"></property>
+		<property name="multiSelectionEnable" value="false" />
+		<property name="templateContainer" ref="templateContainer" />
+		<property name="nodekey" value="Intoproddetaillist" />
+		<property name="userdefitemListPreparator">
+			<bean name="userdefAndMarAsstListPreparator" class="nc.ui.pubapp.uif2app.view.CompositeBillListDataPrepare">
+				<property name="billListDataPrepares">
+					<list>
+						<ref bean="userdefitemlistPreparatorByIp" />
+						<ref bean="marAsstPreparator" />
+					</list>
+				</property>
+			</bean>
+		</property>
 	</bean>
 		
 	<bean id="MachineMmOrderListView" class="nc.ui.so.qs.mmplanbill.view.MachineMmOrderListView" init-method="initUI">
@@ -414,6 +447,19 @@
 			<list>
 				<bean class="nc.ui.uif2.editor.UserdefQueryParam">
 					<property name="mdfullname" value="so.rd_pd" />
+					<property name="pos" value="1" />
+					<property name="prefix" value="def" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean name="userdefitemlistPreparatorByIp" class="nc.ui.uif2.editor.UserdefitemContainerListPreparator">
+		<property name="container" ref="userdefitemContainer" />
+		<property name="params">
+			<list>
+				<bean class="nc.ui.uif2.editor.UserdefQueryParam">
+					<property name="mdfullname" value="so.IntoProdDetailVO" />
 					<property name="pos" value="1" />
 					<property name="prefix" value="def" />
 				</bean>

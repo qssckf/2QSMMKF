@@ -27,7 +27,7 @@ public class RdMakeRPMOAction extends NCAction{
 		
 		this.setBtnName("进入待处理列表");
 		this.setCode("RdMakeRPMO");
-		this.putValue("ShortDescription", "进入待处理列表，便于汇总生成生产订单！");
+		this.putValue("ShortDescription", "进入待处理列表，便于后续人员进行投产处理！");
 		this.putValue("SmallIcon", ThemeResourceCenter.getInstance().getImage(iconurl));
 		this.setEnabled(false);
 	}

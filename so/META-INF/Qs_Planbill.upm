@@ -11,6 +11,6 @@
 	  <interface>nc.itf.so.qs.sc.planbill.service.IRdMmService</interface>
 	  <implementation>nc.impl.so.qs.sc.planbill.RdMmServiceImpl</implementation>
 	</component>
-
+	
   </public> 
 </module> 

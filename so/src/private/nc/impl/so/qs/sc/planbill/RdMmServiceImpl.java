@@ -1,6 +1,7 @@
 package nc.impl.so.qs.sc.planbill;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -13,6 +14,10 @@ import nc.bs.dao.BaseDAO;
 import nc.bs.dao.DAOException;
 import nc.bs.framework.common.NCLocator;
 import nc.bs.mmpac.pmo.pac0002.bp.PMOInsertBP;
+import nc.bs.so.qs.sc.intoprod.bp.IntoProdDeleteBP;
+import nc.bs.so.qs.sc.intoprod.bp.IntoProdInsertBP;
+import nc.bs.so.qs.sc.intoprod.bp.IntoProdReleaseBP;
+import nc.bs.so.qs.sc.intoprod.bp.IntoProdUpdateBP;
 import nc.bs.so.qs.sc.readyplan.bp.RdDeleteBP;
 import nc.bs.so.qs.sc.readyplan.bp.RdInsertBP;
 import nc.bs.so.qs.sc.readyplan.bp.RdMakePMOBP;
@@ -22,6 +27,8 @@ import nc.bs.so.qs.sc.readyplan.bp.RdUpdateBp;
 import nc.hr.frame.persistence.AppendBeanArrayProcessor;
 import nc.itf.mmpps.plo.IPloReleaseService;
 import nc.itf.so.qs.sc.planbill.service.IRdMmService;
+import nc.md.persist.framework.IMDPersistenceQueryService;
+import nc.md.persist.framework.MDPersistenceService;
 import nc.pubitf.mmpac.pmo.pps.IPublicPMOService4PPS;
 import nc.util.mmf.busi.measure.MeasureHelper;
 import nc.util.mmf.busi.measure.NumScaleUtil;
@@ -40,9 +47,11 @@ import nc.vo.pub.lang.UFDouble;
 import nc.vo.pubapp.pattern.exception.ExceptionUtils;
 import nc.vo.pubapp.pattern.pub.MapList;
 import nc.vo.pubapp.pattern.pub.MapSet;
+import nc.vo.so.qs.sc.IntoProdDetailVO;
 import nc.vo.so.qs.sc.MmPlanBillVO;
 import nc.vo.so.qs.sc.RdPorductDetailVO;
 import nc.vo.so.qs.sc.planbill.readyplan.PmoViewVO;
+import nc.vo.util.BDVersionValidationUtil;
 
 public class RdMmServiceImpl implements IRdMmService{
 
@@ -56,6 +65,10 @@ public class RdMmServiceImpl implements IRdMmService{
 		}
 		
 		return dao;
+	}
+	
+	private IMDPersistenceQueryService getMDQueryService() {
+		return MDPersistenceService.lookupPersistenceQueryService();
 	}
 	
 	@Override
@@ -128,6 +141,8 @@ public class RdMmServiceImpl implements IRdMmService{
 		
 
 	}
+	
+	
 	
 	public static UFDouble numberOfInputs(UFDouble outputNum, MaterialPlanVO mp)
 	{
@@ -320,6 +335,110 @@ public class RdMmServiceImpl implements IRdMmService{
 	private <T> T[] executeQueryAppendableVOs(String sql,Class voclass) throws DAOException {
 		
 		return (T[])this.getDao().executeQuery(sql.toString(), new AppendBeanArrayProcessor(voclass));
+	}
+
+	@Override
+	public String[] queryVOPksByIp(String sqlwhere) throws BusinessException {
+		// TODO 自动生成的方法存根
+		
+		System.out.println("进入查询方法");
+		
+		Collection<RdPorductDetailVO> rdvos=getMDQueryService().queryBillOfVOByCond(RdPorductDetailVO.class, sqlwhere, false);
+		
+		RdPorductDetailVO[] vos = rdvos.toArray(new RdPorductDetailVO[rdvos.size()]);
+		
+		String[] pks = new String[0];
+		
+		if(vos!=null){
+			pks = new String[vos.length];
+			for (int i = 0; i < vos.length; i++) {
+				pks[i]=vos[i].getPk_rdpd();
+			}
+		}
+		return pks;
+
+	}
+
+	@Override
+	public Object[] queryVOsByPksByIp(String[] pks) throws BusinessException {
+		// TODO 自动生成的方法存根
+		
+		Collection<RdPorductDetailVO> vos= getMDQueryService().queryBillOfVOByPKs(RdPorductDetailVO.class, pks, false);
+		
+		return vos.toArray(new RdPorductDetailVO[vos.size()]);
+	}
+
+	@Override
+	public void validateVOTs(SuperVO[] vos) throws BusinessException {
+		// TODO 自动生成的方法存根
+		BDVersionValidationUtil.validateSuperVO(vos);
+	}
+
+	@Override
+	public IntoProdDetailVO[] InsertIp(IntoProdDetailVO[] objs) throws BusinessException {
+		// TODO 自动生成的方法存根
+		
+		try{
+			
+			IntoProdInsertBP action = new IntoProdInsertBP();
+			
+			return action.insert(objs);
+			
+		}catch(Exception e){
+			throw new BusinessException(e);
+		}
+	}
+
+	@Override
+	public void deleteIp(IntoProdDetailVO obj) throws BusinessException {
+		// TODO 自动生成的方法存根
+		
+		try{
+			
+			IntoProdDeleteBP action = new IntoProdDeleteBP();
+			action.delete(new IntoProdDetailVO[]{obj});
+			
+		}catch(Exception e){
+			throw new BusinessException(e);
+		}
+		
+		
+	}
+
+	@Override
+	public IntoProdDetailVO[] updateIp(IntoProdDetailVO[] objs) throws BusinessException {
+		// TODO 自动生成的方法存根
+		
+		try{
+			
+			IntoProdDetailVO[] oldVo=(IntoProdDetailVO[])MDQueryUtil.lockValidateToRetrieveVO(objs);
+			
+			IntoProdUpdateBP action = new IntoProdUpdateBP();
+			
+			return action.update(objs, oldVo);
+			
+		}catch(Exception e){
+			throw new BusinessException(e);
+		}
+	}
+
+	@Override
+	public IntoProdDetailVO[] DoRelease(IntoProdDetailVO[] objs) throws BusinessException {
+		// TODO 自动生成的方法存根
+		try{
+			
+			IntoProdDetailVO[] oldvos = (IntoProdDetailVO[]) MDQueryUtil.lockValidateToRetrieveVO(objs);
+			
+			IntoProdReleaseBP action=new IntoProdReleaseBP();
+
+			return action.doRelease(objs);
+			
+			
+		}catch(Exception e){
+			throw new BusinessException(e);
+		}
+		
+		
 	}
 
 }

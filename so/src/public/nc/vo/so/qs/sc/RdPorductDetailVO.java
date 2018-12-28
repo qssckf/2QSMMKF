@@ -89,8 +89,11 @@ public class RdPorductDetailVO extends SuperVO implements IQLock {
 	private java.lang.Integer billstatus;
 	private java.lang.Integer dr = 0;
 	private java.lang.String processer;
-
-
+	private nc.vo.pub.lang.UFDouble tintoprodnum;
+	private nc.vo.pub.lang.UFDouble tintopronastnum;
+	private String prevbillcode;
+	private String planbillcode;
+	
 	private nc.vo.pub.lang.UFDateTime ts;
 
 	public static final String PK_RDPD = "pk_rdpd";
@@ -163,7 +166,10 @@ public class RdPorductDetailVO extends SuperVO implements IQLock {
 	public static final String RATE = "rate";
 	public static final String BILLSTATUS="billstatus";
 	public static final String PROCESSER="processer";
-			
+	public static final String TINTOPRODNUM="tintoprodnum";
+	public static final String TINTOPRONASTNUM="tintopronastnum";	
+	public static final String PLANBILLCODE = "planbillcode";
+	public static final String PREVBILLCODE = "prevbillcode";
 	/**
 	 * 属性pk_rdpd的Getter方法.属性名：主键
 	 * 创建日期:
@@ -1299,6 +1305,33 @@ public class RdPorductDetailVO extends SuperVO implements IQLock {
 	}
 	public void setBillstatus(java.lang.Integer billstatus) {
 		this.billstatus = billstatus;
+	}
+	
+
+	public nc.vo.pub.lang.UFDouble getTintoprodnum() {
+		return tintoprodnum;
+	}
+	public void setTintoprodnum(nc.vo.pub.lang.UFDouble tintoprodnum) {
+		this.tintoprodnum = tintoprodnum;
+	}
+	public nc.vo.pub.lang.UFDouble getTintopronastnum() {
+		return tintopronastnum;
+	}
+	public void setTintopronastnum(nc.vo.pub.lang.UFDouble tintopronastnum) {
+		this.tintopronastnum = tintopronastnum;
+	}
+	
+	public String getPrevbillcode() {
+		return prevbillcode;
+	}
+	public void setPrevbillcode(String prevbillcode) {
+		this.prevbillcode = prevbillcode;
+	}
+	public String getPlanbillcode() {
+		return planbillcode;
+	}
+	public void setPlanbillcode(String planbillcode) {
+		this.planbillcode = planbillcode;
 	}
 
 	

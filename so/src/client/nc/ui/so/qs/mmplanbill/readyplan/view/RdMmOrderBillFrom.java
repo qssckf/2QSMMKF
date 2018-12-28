@@ -19,7 +19,7 @@ import nc.vo.so.pub.keyvalue.IKeyValue;
 
 public class RdMmOrderBillFrom extends ShowUpableBillForm implements OnhandPanelSrc{
 
-	private String[] headFields={"pk_dept","splitstofftype","silkwide","elongation","tension","spacer","otherproduction","spacer","tagline","latitudedensity","width","length","prodnum","prodnastnum","proddate","enddate","def1"};
+	private String[] headFields={"processer","pk_dept","splitstofftype","silkwide","elongation","tension","spacer","otherproduction","spacer","tagline","latitudedensity","width","length","prodnum","prodnastnum","proddate","enddate","def1"};
 	
 	private OnhandPanelAdaptor adaptor;
 	

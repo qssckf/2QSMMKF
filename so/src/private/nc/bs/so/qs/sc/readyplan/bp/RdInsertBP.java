@@ -49,7 +49,7 @@ public class RdInsertBP {
 		
 		aroundProcesser.addBeforeRule(new StringFieldTrimRule());
 		
-		aroundProcesser.addBeforeRule(new NotNullValueRule(Arrays.asList(new String[] { "prodnum", "prodnastnum","proddate","enddate","pk_material","pk_bomid","pk_dept","pk_machine","def1"})));
+		aroundProcesser.addBeforeRule(new NotNullValueRule(Arrays.asList(new String[] { "processer","prodnum", "prodnastnum","proddate","enddate","pk_material","pk_bomid","pk_dept","pk_machine","def1"})));
 		
 		aroundProcesser.addBeforeRule(new InsertAuditInfoRule());
 		

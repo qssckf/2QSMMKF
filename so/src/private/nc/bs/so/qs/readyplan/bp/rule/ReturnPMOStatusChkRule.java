@@ -28,6 +28,10 @@ public class ReturnPMOStatusChkRule implements IRule<RdPorductDetailVO>{
 				failures.add(new ValidationFailure("生产日期：【"+vos[i].getProddate()+"】,生产数量：【"+vos[i].getProdnum()+"】，不为待处理状态，不能继续！"));
 			}
 			
+			if(vos[i].getTintoprodnum()!=null && vos[i].getTintoprodnum().toDouble()>0){
+				failures.add(new ValidationFailure("生产调度单明细记录已经有投产信息，不能继续！"));
+			}
+			
 			
 		}
 		

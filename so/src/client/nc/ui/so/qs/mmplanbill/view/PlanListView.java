@@ -30,6 +30,7 @@ import nc.ui.pub.linkoperate.ILinkQueryData;
 import nc.ui.pub.msg.PfLinkData;
 import nc.ui.pubapp.uif2app.view.ShowUpableBillListView;
 import nc.ui.sm.power.FuncRegisterCacheAccessor;
+import nc.ui.so.qs.mmplanbill.model.IntoProdManageAppModel;
 import nc.ui.so.qs.mmplanbill.model.PlanDetailMManageAppModel;
 import nc.ui.so.qs.mmplanbill.model.PlanDetailManageAppModel;
 import nc.ui.so.qs.mmplanbill.process.model.BomChildAppModel;
@@ -53,12 +54,21 @@ public class PlanListView extends ShowUpableBillListView implements ListSelectio
 	private IPlanBillSerive PlanService;
 	private PlanDetailManageAppModel PlanDetailModel;
 	private PlanDetailMManageAppModel PlanDetailMModel;
+	private IntoProdManageAppModel IpModel;
 	private BomVersionTableCellRenderer cellRenderer;
 	public int selectIndex = 0;
 	private Boolean IsChange;
 	private Boolean IsFrist;
 	public static final String[] LinkQueryBusiActiveCodes = { "LinkQuery" };
 	private int openMode = 1;
+	
+	public IntoProdManageAppModel getIpModel() {
+		return IpModel;
+	}
+
+	public void setIpModel(IntoProdManageAppModel ipModel) {
+		IpModel = ipModel;
+	}
 	
 	public static IMDPersistenceQueryService getMDQueryService(){
 		
@@ -382,6 +392,7 @@ public class PlanListView extends ShowUpableBillListView implements ListSelectio
 		}else{
 			this.getPlanDetailModel().initModel(null);
 			this.getPlanDetailMModel().initModel(null);
+			this.getIpModel().initModel(null);
 		}
 		
 	}

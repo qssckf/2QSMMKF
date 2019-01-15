@@ -1,8 +1,13 @@
 package nc.vo.so.qs.appinterface.util;
+
+import nc.vo.pub.SuperVO;
  
  
  public class TaskMetaData
  {
+	 
+   private SuperVO billvo;	 
+
    private String billType;
    
    private String billId;
@@ -21,6 +26,15 @@ package nc.vo.so.qs.appinterface.util;
    private String startDate;
    
    private int fstatusflag;
+   
+   public SuperVO getBillvo() {
+	   return billvo;
+   }
+
+
+   public void setBillvo(SuperVO billvo) {
+	   this.billvo = billvo;
+   }
    
    
    public String getFirststepid() {

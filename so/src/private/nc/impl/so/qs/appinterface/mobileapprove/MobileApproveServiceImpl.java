@@ -1558,6 +1558,10 @@ public class MobileApproveServiceImpl implements IMobileApproveService {
 				
 				for(int j=0;j<bodyfield.length;j++){
 					
+					if("cpreorderid".equals(bodyfield[j])){
+						System.out.println("OK");
+					}
+					
 					if("status".equals(bodyfield[j])){
 						
 						if(bodyinfos.getJSONObject(i).get(bodyfield[j]).equals("nvl")){

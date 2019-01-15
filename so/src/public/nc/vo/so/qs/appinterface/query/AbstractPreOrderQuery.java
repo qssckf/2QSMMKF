@@ -70,6 +70,8 @@ public abstract class AbstractPreOrderQuery extends BillQuery{
 		tmd.setStartDate(note.getDbilldate().toString().substring(0,10));
 		tmd.setFstatusflag(note.getFstatusflag());
 		tmd.setTitle(MakeTitle(note));
+		tmd.setBillvo(note);
+		
 		return tmd;
 	}
 
@@ -119,7 +121,7 @@ public abstract class AbstractPreOrderQuery extends BillQuery{
 
 	}
 	
-	private Map<String, Object> convertToTask(TaskMetaData tmd) {
+	private Map<String, Object> convertToTask(TaskMetaData tmd) throws BusinessException {
 	    
 		Map<String, Object> map = new HashMap();
 	    
@@ -128,6 +130,18 @@ public abstract class AbstractPreOrderQuery extends BillQuery{
 	    map.put("date", tmd.getStartDate());
 	    map.put("title", tmd.getTitle());
 	    map.put("billtype", tmd.getBillType());
+	    map.put("vbillcode", tmd.getBillvo().getAttributeValue("vbillcode"));
+	    map.put("dbilldate", tmd.getBillvo().getAttributeValue("dbilldate"));
+	    map.put("ntotalnum", tmd.getBillvo().getAttributeValue("ntotalnum"));
+	    BilltypeVO btvo = PfDataCache.getBillTypeInfo(tmd.getBillvo().getAttributeValue("vtrantypecode").toString());
+	    if(btvo!=null){
+	    	map.put("billtype", btvo.getBilltypename());
+	    }
+	    CustomerVO cus=(CustomerVO)getQueryService().retrieveByPK(CustomerVO.class, tmd.getBillvo().getAttributeValue("ccustomerid").toString());
+	    if(cus!=null){
+	    	map.put("customer", cus.getName());
+	    }
+	    
 	    
 	    return map;
 	}

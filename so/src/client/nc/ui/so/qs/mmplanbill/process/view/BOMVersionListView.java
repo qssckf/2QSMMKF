@@ -22,6 +22,7 @@ import nc.ui.pub.bill.table.BillTableBooleanCellRenderer;
 import nc.ui.pubapp.uif2app.view.ShowUpableBillListView;
 import nc.ui.pubapp.uif2app.view.value.BillListViewMetaDataFullValueAdapter;
 import nc.ui.so.qs.mmplanbill.process.model.BomChildAppModel;
+import nc.ui.so.qs.mmplanbill.process.model.PlanBillAppModel;
 import nc.ui.so.qs.mmplanbill.process.model.QsVOBillListPanelValueSetter;
 import nc.ui.uif2.IExceptionHandler;
 import nc.ui.uif2.UIState;
@@ -33,6 +34,7 @@ import nc.vo.pub.CircularlyAccessibleValueObject;
 import nc.vo.pub.ExtendedAggregatedValueObject;
 import nc.vo.pub.SuperVO;
 import nc.vo.pub.lang.UFBoolean;
+import nc.vo.pub.lang.UFDouble;
 import nc.vo.pubapp.pattern.exception.ExceptionUtils;
 import nc.vo.trade.pub.IExAggVO;
 
@@ -103,11 +105,26 @@ public class BOMVersionListView extends ShowUpableBillListView implements ListSe
 						
 					}else{
 						
+						String mat = (String) getBillListPanel().getParentListPanel().getTableModel().getValueAt(event.getRow(), "pk_material");
 						String bomid = (String) getBillListPanel().getParentListPanel().getTableModel().getValueAt(event.getRow(), "cbomid");
 						String bomversion=(String) getBillListPanel().getParentListPanel().getTableModel().getValueAt(event.getRow(), "BomVersion");
+						String tmbomid=(String) getBillListPanel().getParentListPanel().getTableModel().getValueAt(event.getRow(), "tmbomid");
+						UFDouble itemnum=(UFDouble)getBillListPanel().getParentListPanel().getTableModel().getValueAt(event.getRow(), "tmitemnum");
 						
 						BOMVersionListView.this.getCard().getBillCardPanel().getHeadItem("bomid").setValue(bomid);
 						BOMVersionListView.this.getCard().getBillCardPanel().getHeadItem("vbomversion").setValue(bomversion);
+						if(BOMVersionListView.this.getCard() instanceof PlanBillProcessBillFrom){
+							
+							PlanBillAppModel model=(PlanBillAppModel)BOMVersionListView.this.getCard().getModel();
+							
+							if(model.getSftm()){
+								BOMVersionListView.this.getCard().getBillCardPanel().getHeadItem("vbdef2").setValue(mat);
+								BOMVersionListView.this.getCard().getBillCardPanel().getHeadItem("vbdef3").setValue(tmbomid);
+								BOMVersionListView.this.getCard().getBillCardPanel().getHeadItem("vbdef4").setValue(itemnum);
+							}
+							
+						}
+						
 						
 					}
 					

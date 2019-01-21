@@ -15,7 +15,9 @@ import nc.bs.bd.bp.utils.MDQueryUtil;
 import nc.bs.dao.BaseDAO;
 import nc.bs.dao.DAOException;
 import nc.bs.framework.core.service.TimeService;
+import nc.bs.so.qs.planbill.bp.rule.PlanBillExpendByTMRule;
 import nc.bs.so.qs.sc.planbill.bp.PlanBillDeleteBP;
+import nc.bs.so.qs.sc.planbill.bp.PlanBillExendBPByTM;
 import nc.bs.so.qs.sc.planbill.bp.PlanBillExpendBP;
 import nc.bs.so.qs.sc.planbill.bp.PlanBillInsertBP;
 import nc.bs.so.qs.sc.planbill.bp.PlanBillUnExpendBP;
@@ -172,6 +174,9 @@ public class PlanBillServiceImpl implements IPlanBillSerive{
 		
 		return vos;
 	}
+	
+	
+	
 	
 	public SuperVO[] queryBomleafChildren(String bomid, String pk_org) throws BusinessException {
 		// TODO 自动生成的方法存根
@@ -620,6 +625,63 @@ public class PlanBillServiceImpl implements IPlanBillSerive{
 		
 		
 		return ret;
+	}
+
+	@Override
+	public SuperVO[] queryBomVersionByTM(String pk_materail, String pk_org) throws BusinessException {
+		// TODO 自动生成的方法存根
+		
+		String sql="select a.pk_org,b.cmaterialid,cmar.code matercode,a.cbomid,b.nitemnum";
+		sql=sql+" from bd_bom a";
+		sql=sql+" inner join bd_bom_b b on a.cbomid=b.cbomid";
+		sql=sql+" left join bd_material mar on a.hcmaterialid=mar.pk_material";
+		sql=sql+" left join bd_material cmar on b.cmaterialid=cmar.pk_material";
+		sql=sql+" left join bd_bom bbom on b.vitemversion=bbom.cbomid";
+		sql=sql+" left join bd_measdoc unit on b.cmeasureid=unit.pk_measdoc";
+		sql=sql+" where a.pk_org='"+pk_org+"' and  a.dr=0 and b.dr=0 and a.cbomid=(select cbomid from bd_bom where hcmaterialid='"+pk_materail+"' and dr=0 and hvdef1='Y')";
+		
+		IRowSet row=this.getDataAcc().query(sql);
+		
+		if(row.next()){
+			
+			String cmat=row.getString(1);
+			
+			sql="select bd_bom.pk_org,cbomid,hcmaterialid pk_material,bd_material.name matername,bd_material.materialspec materspec,bd_material.materialtype matertype,";
+			sql=sql+"decode(bd_bom.fbomtype,1,'生产BOM',2,'包装BOM',3,'配置BOM') bomtype,bd_bom.hversion bomversion,bd_bom.hvnote memo from bd_bom";
+			sql=sql+" left join bd_material on bd_bom.hcmaterialid=bd_material.pk_material";
+			sql=sql+" where bd_bom.dr=0 and bd_bom.hcmaterialid='"+cmat+"' and bd_bom.pk_org='"+pk_org+"'";
+			
+			BomVersionVO[] vos=(BomVersionVO[])executeQueryAppendableVOs(sql,BomVersionVO.class);
+			
+			for(BomVersionVO vo:vos){
+				vo.setTmbomid(row.getString(3));
+				vo.setTmitemnum(row.getUFDouble(4).toDouble());
+			}
+			
+			return vos;
+			
+		}
+		
+		return null;
+	}
+
+	@Override
+	public MmPlanBillVO[] ExpendByTm(MmPlanBillVO[] objs) throws BusinessException {
+		// TODO 自动生成的方法存根
+		
+		try{
+			
+			MmPlanBillVO[] oldVo=(MmPlanBillVO[])MDQueryUtil.lockValidateToRetrieveVO(objs);
+			
+			PlanBillExendBPByTM action = new PlanBillExendBPByTM();
+			
+			return action.ExpendByTM(objs, oldVo);
+			
+		}catch(Exception e){
+			throw new BusinessException(e);
+		}
+		
+	
 	}
 
 }

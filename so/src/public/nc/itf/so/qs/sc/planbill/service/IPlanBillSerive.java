@@ -20,6 +20,8 @@ public abstract interface IPlanBillSerive {
 	
 	public abstract SuperVO[] queryBomVersion(String pk_materail,String pk_org) throws BusinessException;
 	
+	public abstract SuperVO[] queryBomVersionByTM(String pk_materail,String pk_org) throws BusinessException;
+	
 	public abstract SuperVO[] queryBomChildren(String bomid,String pk_org) throws BusinessException;
 	
 	public abstract SuperVO[] quyerPlanDetailVOs(String wheresql) throws BusinessException;
@@ -31,6 +33,8 @@ public abstract interface IPlanBillSerive {
 	public String[] delete(MmPlanBillVO[] objs) throws BusinessException;
 	
 	public abstract MmPlanBillVO[] Expend(MmPlanBillVO[] objs) throws BusinessException;
+	
+	public abstract MmPlanBillVO[] ExpendByTm(MmPlanBillVO[] objs) throws BusinessException;
 	
 	public abstract MmPlanBillVO[] UnExpend(MmPlanBillVO[] objs) throws BusinessException;
 	

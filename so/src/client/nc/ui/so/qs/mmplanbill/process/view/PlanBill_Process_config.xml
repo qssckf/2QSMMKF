@@ -214,6 +214,9 @@
 				<bean class="nc.ui.pubapp.uif2app.validation.TemplateNotNullValidation">
 					<property name="billForm" ref="PlanBillCard" />
 				</bean>
+				<bean class="nc.ui.so.qs.mmplanbill.process.actions.TmKZNotNullValidation">
+					<property name="model" ref="PlanBillAppModel" />
+				</bean>
 			</list>
 		</property>
 	</bean>

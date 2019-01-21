@@ -22,8 +22,9 @@ public class BomVersionVO extends SuperVO implements IAppendableVO{
 	private java.lang.String memo;
 	private java.lang.String cbomid;
 	private java.lang.String pk_org;
+	private java.lang.String tmbomid;
+	private Double tmitemnum;
 	
-
 
 	public static final String PK_MATERIAL = "pk_material";
 	public static final String MATERNAME = "matername";
@@ -34,6 +35,25 @@ public class BomVersionVO extends SuperVO implements IAppendableVO{
 	public static final String MEMO = "memo";
 	public static final String CBOMID = "cbomid";
 	public static final String PK_ORG = "pk_org";
+	public static final String TMBOMID = "tmbomid";
+	public static final String TMITEMNUM="tmitemnum";
+	
+	
+	public java.lang.String getTmbomid() {
+		return tmbomid;
+	}
+
+	public void setTmbomid(java.lang.String tmbomid) {
+		this.tmbomid = tmbomid;
+	}
+
+	public Double getTmitemnum() {
+		return tmitemnum;
+	}
+
+	public void setTmitemnum(Double tmitemnum) {
+		this.tmitemnum = tmitemnum;
+	}
 	
 	
 	public java.lang.String getPk_org() {

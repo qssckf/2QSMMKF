@@ -180,10 +180,10 @@ public class BatchDocBaseDAO {
 		 }
 		 
 		 //按照vo主键进行加锁，同时操作主键数据时会抛出异常
-		 BizlockDataUtil.lockDataByBizlock(vos);
+//		 BizlockDataUtil.lockDataByBizlock(vos);
 		 
 		 //根据传入的insertVaList验证规则列表对数据进行验证
-		 validateFailure(vos, insertValList);
+//		 validateFailure(vos, insertValList);
 		 
 		 MDBaseQueryFacade.getInstance().getBeanByFullClassName(vos[0].getClass().getName()).getID();
 		 

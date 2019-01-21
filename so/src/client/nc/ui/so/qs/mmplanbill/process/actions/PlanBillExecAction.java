@@ -85,19 +85,26 @@ public class PlanBillExecAction extends NCAction {
 	public void doExpend() throws Exception {
 		// TODO 自动生成的方法存根
 		
+		MmPlanBillVO[] ret=null;
+		
 		Object value = this.getEditor().getValue();
 		
 		MmPlanBillVO pbVo=(MmPlanBillVO)value;
 		
 		pbVo.setSfexand(UFBoolean.TRUE);
 		
-		MmPlanBillVO[] ret=this.getPlanService().Expend(new MmPlanBillVO[]{pbVo});
+		PlanBillAppModel model = (PlanBillAppModel)this.getModel();
+		
+		if(model.getSftm()){
+			ret=this.getPlanService().ExpendByTm(new MmPlanBillVO[]{pbVo});
+		}else{
+			ret=this.getPlanService().Expend(new MmPlanBillVO[]{pbVo});
+		}
+
 		
 		if(ret!=null && ret.length==1){
 			
 			MmPlanBillVO pdvo=ret[0];
-			
-			PlanBillAppModel model=((PlanBillAppModel)this.getModel());
 			
 			model.directlyUpdate(pdvo);
 			

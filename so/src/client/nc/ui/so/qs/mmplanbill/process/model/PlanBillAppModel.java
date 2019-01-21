@@ -16,7 +16,18 @@ public class PlanBillAppModel extends BillManageModel{
 	private BillManageModel parentModel;
 	private ShowUpableBillListView parentForm;
 	private IPlanBillSerive PlanService;
+	private Boolean sftm=false;
 	
+	public Boolean getSftm() {
+		return sftm;
+	}
+
+
+	public void setSftm(Boolean sftm) {
+		this.sftm = sftm;
+	}
+
+
 	public IPlanBillSerive getPlanService() {
 		
 		if(this.PlanService==null){

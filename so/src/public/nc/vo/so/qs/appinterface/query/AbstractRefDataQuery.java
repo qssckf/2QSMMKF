@@ -138,7 +138,12 @@ public class AbstractRefDataQuery extends RefDataQuery {
 		
 		map.put("id", sup.getAttributeValue(this.getIdfieldname()));
 		map.put("code", sup.getAttributeValue(this.getCodefieldname()));
-		map.put("name", sup.getAttributeValue(this.getNamefieldname()));
+		if("nc.vo.bd.material.MaterialVO".equals(this.getVoClassName()) || "nc.vo.bd.material.MaterialVersionVO".equals(this.getVoClassName())){
+			map.put("name", sup.getAttributeValue(this.getNamefieldname()).toString()+(sup.getAttributeValue("materialspec")==null?"":" ¹æ¸ñ:"+sup.getAttributeValue("materialspec")));
+		}else{
+			map.put("name", sup.getAttributeValue(this.getNamefieldname()));
+		}
+		
 		
 		if(this.getFiled()!=null){
 			

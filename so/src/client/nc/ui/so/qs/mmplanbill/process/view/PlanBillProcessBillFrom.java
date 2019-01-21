@@ -5,7 +5,7 @@ import nc.ui.pubapp.uif2app.view.ShowUpableBillForm;
 
 public class PlanBillProcessBillFrom extends ShowUpableBillForm{
 	
-	private String[] headFields={"plandate"};
+	private String[] headFields={"plandate","vbdef1"};
 	
 	
 

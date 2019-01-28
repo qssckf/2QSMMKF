@@ -878,9 +878,37 @@ public class MobileApproveServiceImpl implements IMobileApproveService {
 		IplatFormEntry entry = (IplatFormEntry)NCLocator.getInstance().lookup(IplatFormEntry.class);
 		entry.processAction("APPROVE", billtype, worknoteVO, billvo, null, ExMobileAppUtil.createHashMap());
 		
+		
+		String pushUser="";
+		  
+		String sql="select billid from pub_workflownote where pk_checkflow='"+taskid+"'";
+		
+		IRowSet row=this.getDao().query(sql);
+		  
+		if(row.next()){
+			  
+			  sql="select checkman from pub_workflownote where billid='"+row.getString(0)+"' and workflow_type in (2, 3, 6) and approvestatus=0";
+			  
+			  IRowSet row1=this.getDao().query(sql);
+			  
+			  while(row1.next()){
+				  
+				  if(pushUser == ""){
+					  pushUser=row1.getString(0);
+				  }else{
+					  pushUser = pushUser + "," + row1.getString(0);
+				  }
+				  
+			  }
+			  	  
+		}else{
+			  throw new BusinessException("根据工作ID没有找到单据ID不能找到推送人");
+		}
+		
+		
 		HashMap<String, Object> retobj=ExMobileAppUtil.createHashMap();
 		  
-		retobj.put("appresult", "successed");
+		retobj.put("appresult", pushUser);
 	     
 		return retobj;
 		

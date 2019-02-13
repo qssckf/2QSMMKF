@@ -11,6 +11,8 @@ import nc.vo.pubapp.pattern.data.IRowSet;
 
 public interface IMobileApproveService {
 	
+	public Map<String,String> getRefName(String voclass,String entityname,String value) throws Exception;
+	
 	public abstract List<Map<String, Object>> getPFTaskList(String pk_group, String userid, String date, String statuskey, String statuscode, String cond,int startline, int count,int pagenum) throws BusinessException;
 	
 	public abstract Map<String, Object> getTaskBill(String groupid, String userid, String taskid, String statuskey, String statuscode) throws BusinessException;
@@ -54,5 +56,8 @@ public interface IMobileApproveService {
 	public Map<String, Object> getTempletInfo(String pk_group, String userid,String billtype) throws BusinessException, JSONException;
 	
 	public Map<String, Object> MatrialEditAfterHandler(String pk_group,String user,String billtype,String pk_org, String material,String customer,String corigcurrencyid,String dbilldate) throws Exception;
+	
+	public List<Map<String, Object>> queryPreOrderInfo(String pk_group,String user, String cond, int startline,int count,int pagenum) throws BusinessException;
+	
 }
 

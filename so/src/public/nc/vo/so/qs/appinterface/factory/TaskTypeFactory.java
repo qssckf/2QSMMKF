@@ -7,13 +7,12 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import nc.vo.pf.mobileapp.ITaskType;
-import nc.vo.pf.mobileapp.ReceivedHandled;
-import nc.vo.pf.mobileapp.ReceivedUnhandled;
 import nc.vo.pf.mobileapp.SubmittedHandled;
 import nc.vo.pf.mobileapp.SubmittedHandling;
 import nc.vo.pf.mobileapp.SubmittedUnhandled;
+import nc.vo.so.qs.appinterface.query.ITaskType;
+import nc.vo.so.qs.appinterface.query.ReceivedHandled;
+import nc.vo.so.qs.appinterface.query.ReceivedUnhandled;
 
 
 
@@ -44,9 +43,9 @@ public class TaskTypeFactory
   private void init() {
     this.typeList = new ArrayList();
  
-    this.typeList.add(new SubmittedUnhandled());
-	this.typeList.add(new SubmittedHandling());
-	this.typeList.add(new SubmittedHandled());
+//    this.typeList.add(new SubmittedUnhandled());
+//	this.typeList.add(new SubmittedHandling());
+//	this.typeList.add(new SubmittedHandled());
     this.typeList.add(new ReceivedUnhandled());
     this.typeList.add(new ReceivedHandled());
     

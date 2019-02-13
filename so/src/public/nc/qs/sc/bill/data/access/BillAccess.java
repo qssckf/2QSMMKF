@@ -702,7 +702,7 @@ import nc.bill.data.access.GetMeteDataRelationItemVaule;
 /* 695 */     return this.billVO;
 /*     */   }
 /*     */   
-/*     */   public Map<String, List<Map<String, Object>>> billVO2Map() {
+/*     */   public Map<String, List<Map<String, Object>>> billVO2Map(String billtype) {
 /* 699 */     BillVO billVO = getBillVOByMetaData();
 /* 700 */     if (billVO == null) {
 /* 701 */       return null;
@@ -712,17 +712,17 @@ import nc.bill.data.access.GetMeteDataRelationItemVaule;
 /*     */     
 /*     */ 
 /*     */ 
-/* 708 */     putHeadTailData(billVO, map, 0);
+/* 708 */     putHeadTailData(billVO, map, 0,billtype);
 /*     */     
-/* 710 */     putHeadTailData(billVO, map, 2);
+/* 710 */     putHeadTailData(billVO, map, 2,billtype);
 /*     */     
 /*     */ 
-/* 713 */     putBodyData(billVO, map);
+/* 713 */     putBodyData(billVO, map,billtype);
 /*     */     
 /* 715 */     return map;
 /*     */   }
 /*     */   
-/*     */   private void putHeadTailData(BillVO billVO, Map<String, List<Map<String, Object>>> map, int pos)
+/*     */   private void putHeadTailData(BillVO billVO, Map<String, List<Map<String, Object>>> map, int pos,String billtype)
 /*     */   {
 /* 720 */     ISuperVO headTailVO = billVO.getParentVO();
 /* 721 */     BillTabVO[] tabVOs = billVO.getTabVOPos(pos);
@@ -734,7 +734,7 @@ import nc.bill.data.access.GetMeteDataRelationItemVaule;
 /* 727 */         Map<String, Object> tabMap = new LinkedHashMap();
 /* 728 */         tabMap.put("tabCode", tabVOs[i].getTabcode());
 /* 729 */         tabMap.put("tabName", tabVOs[i].getTabname());
-/* 730 */         tabMap.put("tabContent", accessUtil.getTabDataMap(billVO, tabVOs[i], headTailVO));
+/* 730 */         tabMap.put("tabContent", accessUtil.getTabDataMap(billVO, tabVOs[i], headTailVO,billtype));
 /*     */         
 /* 732 */         list.add(tabMap);
 /*     */       }
@@ -746,7 +746,7 @@ import nc.bill.data.access.GetMeteDataRelationItemVaule;
 /*     */   
 /*     */ 
 /*     */ 
-/*     */   private void putBodyData(BillVO billVO, Map<String, List<Map<String, Object>>> map)
+/*     */   private void putBodyData(BillVO billVO, Map<String, List<Map<String, Object>>> map,String billtype)
 /*     */   {
 /* 744 */     BillTabVO[] tabVOs = billVO.getTabVOPos(1);
 /*     */     
@@ -758,7 +758,7 @@ import nc.bill.data.access.GetMeteDataRelationItemVaule;
 /* 751 */       Map<String, Object> tabMap = new LinkedHashMap();
 /* 752 */       tabMap.put("tabCode", tabVOs[i].getTabcode());
 /* 753 */       tabMap.put("tabName", tabVOs[i].getTabname());
-/* 754 */       tabMap.put("tabContent", accessUtil.getTabDataMap(billVO, tabVOs[i], billVO.getChildrenVO(tabVOs[i].getTabcode())));
+/* 754 */       tabMap.put("tabContent", accessUtil.getTabDataMap(billVO, tabVOs[i], billVO.getChildrenVO(tabVOs[i].getTabcode()),billtype));
 /*     */       
 /*     */ 
 /*     */ 

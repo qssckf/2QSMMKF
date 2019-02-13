@@ -110,7 +110,7 @@ public abstract class BillQuery implements IBillQuery{
 		
 		BillAccess ba = new BillAccess(tvo, bvo);
 		
-		Map<String, List<Map<String, Object>>> billVOMap = ba.billVO2Map();
+		Map<String, List<Map<String, Object>>> billVOMap = ba.billVO2Map(billtype);
 		
 		int origin = ExMobileAppUtil.getRowCount().intValue();
 		int current = ArrayUtil.getLength(bvo.getChildrenVO());

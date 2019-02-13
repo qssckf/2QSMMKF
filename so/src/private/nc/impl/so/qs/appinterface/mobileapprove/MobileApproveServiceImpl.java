@@ -39,6 +39,7 @@ import nc.itf.scmpub.reference.uap.para.SysParaInitQuery;
 import nc.itf.so.m38.IQueryRelationOrg;
 import nc.itf.so.qs.appinterface.MobileApprove.IMobileApproveService;
 import nc.itf.so.qs.sc.planbill.service.IPlanBillSerive;
+import nc.itf.uap.IUAPQueryBS;
 import nc.itf.uap.billtemplate.IBillTemplateQry;
 import nc.itf.uap.pf.IPFTemplate;
 import nc.itf.uap.pf.IWorkflowDefine;
@@ -46,6 +47,7 @@ import nc.itf.uap.pf.IWorkflowMachine;
 import nc.itf.uap.pf.IplatFormEntry;
 import nc.itf.uap.pf.metadata.IFlowBizItf;
 import nc.jdbc.framework.DataSourceCenter;
+import nc.jdbc.framework.processor.ColumnListProcessor;
 import nc.md.MDBaseQueryFacade;
 import nc.md.model.IBusinessEntity;
 import nc.md.model.MetaDataException;
@@ -61,22 +63,22 @@ import nc.ui.pub.bill.BillItem;
 import nc.ui.pubapp.AppUiContext;
 import nc.vo.bd.cust.saleinfo.CustsaleVO;
 import nc.vo.bd.material.MaterialConvertVO;
+import nc.vo.bd.meta.IBDObject;
 import nc.vo.bd.pub.BDCacheQueryUtil;
 import nc.vo.bill.pub.MiscUtil;
 import nc.vo.jcom.lang.StringUtil;
 import nc.vo.ml.NCLangRes4VoTransl;
 import nc.vo.org.OrgVO;
 import nc.vo.pf.change.PfUtilBaseTools;
-import nc.vo.pf.mobileapp.ITaskType;
 import nc.vo.pf.mobileapp.MobileAppUtil;
 import nc.vo.pf.mobileapp.TaskMetaData;
-import nc.vo.pf.mobileapp.query.TaskQuery;
 import nc.vo.pf.mobileapp.query.UserMatcher;
 import nc.vo.pf.mobileapp.query.UserQuery;
 import nc.vo.pf.pub.util.ArrayUtil;
 import nc.vo.pub.AggregatedValueObject;
 import nc.vo.pub.BusinessException;
 import nc.vo.pub.CircularlyAccessibleValueObject;
+import nc.vo.pub.IVOMeta;
 import nc.vo.pub.SuperVO;
 import nc.vo.pub.bill.BillTabVO;
 import nc.vo.pub.bill.BillTempletBodyVO;
@@ -97,6 +99,7 @@ import nc.vo.pubapp.pattern.data.IRowSet;
 import nc.vo.pubapp.pattern.exception.ExceptionUtils;
 import nc.vo.pubapp.pattern.model.entity.bill.AbstractBill;
 import nc.vo.pubapp.pattern.model.entity.bill.IBill;
+import nc.vo.pubapp.pattern.model.meta.entity.vo.VOMetaFactory;
 import nc.vo.pubapp.pattern.model.transfer.bill.ClientBillToServer;
 import nc.vo.pubapp.pattern.pub.Constructor;
 import nc.vo.pubapp.pattern.pub.PubAppTool;
@@ -109,7 +112,10 @@ import nc.vo.so.qs.appinterface.query.AbstractRefDataQuery;
 import nc.vo.so.qs.appinterface.query.BomChinfoQuery;
 import nc.vo.so.qs.appinterface.query.BomVerinfoQuery;
 import nc.vo.so.qs.appinterface.query.ExApproveDetailQuery;
+import nc.vo.so.qs.appinterface.query.ITaskType;
 import nc.vo.so.qs.appinterface.query.PaginationQueryFacade;
+import nc.vo.so.qs.appinterface.query.PreOrderExecQuery;
+import nc.vo.so.qs.appinterface.query.TaskQuery;
 import nc.vo.so.qs.appinterface.util.BillQuery;
 import nc.vo.so.qs.appinterface.util.ExMobileAppUtil;
 import nc.vo.so.qs.appinterface.util.IBillType;
@@ -133,6 +139,7 @@ public class MobileApproveServiceImpl implements IMobileApproveService {
 	private DataAccessUtils dao;
 	private IPlanBillSerive PlanService;
 	private IMDPersistenceQueryService mdservice;
+	private IUAPQueryBS qry = (IUAPQueryBS)NCLocator.getInstance().lookup(IUAPQueryBS.class);
 	
 	private IMDPersistenceQueryService getMDQueryService() {
 		
@@ -208,6 +215,7 @@ public class MobileApproveServiceImpl implements IMobileApproveService {
 	}
 	
 	public Map<String, Object> getTempletInfo(String pk_group, String userid,String billtype) throws BusinessException, JSONException {
+		
 		
 		List<String> headNotNull=new ArrayList<String>();
 		
@@ -353,7 +361,21 @@ public class MobileApproveServiceImpl implements IMobileApproveService {
 	    		
 	    	itemjson.put("ItemShowName", item.getCaption());
 		    itemjson.put("ItemKey", item.getKey());
-		    itemjson.put("DataType", item.getDataType());
+		    
+		    if(billtype.indexOf("38")==0){
+		    	
+		    	if("vdef1".equals(item.getKey()) ||  "vdef3".equals(item.getKey()) || "vfree1".equals(item.getKey()) || "vbdef3".equals(item.getKey())){
+		    		
+		    		itemjson.put("DataType", "5");
+		    		
+		    	}else{
+		    		itemjson.put("DataType", item.getDataType());
+		    	}
+		    	
+		    }else{
+			    itemjson.put("DataType", item.getDataType());
+		    }
+		    
 		    itemjson.put("IsShow", item.isShow());
 		    itemjson.put("IsNull", headNotNull.contains(item.getKey())?false:true);
 		    itemjson.put("IsEdit",billtemplet.getEditflag());
@@ -1067,6 +1089,49 @@ public class MobileApproveServiceImpl implements IMobileApproveService {
 	     
 	     return resultList;
 	   }
+	
+	
+	public Map<String,String> getRefName(String voclass,String entityname,String value) throws Exception{
+		
+		Class clz=Class.forName(voclass);
+		
+		Object obj=clz.newInstance();
+		
+		if(obj instanceof SuperVO){
+			
+			 SuperVO supvo=(SuperVO)obj;
+			
+			 IVOMeta meta=supvo.getMetaData();
+			 
+			 if(meta==null){
+				 meta=VOMetaFactory.getInstance().getVOMeta(entityname);
+			 }
+			
+			 IBusinessEntity bean=(IBusinessEntity) MDBaseQueryFacade.getInstance().getBeanByFullName(meta.getEntityName());
+			
+			 Map<String, String> name_attr_map = ((IBusinessEntity)bean).getBizInterfaceMapInfo(IBDObject.class.getName());
+			 
+			 String name=name_attr_map.get("name");
+			 String pk=name_attr_map.get("id");
+			 
+			 String tablename=bean.getTable().getName();
+			 
+			 String sql="select "+tablename+"."+name+" from "+tablename+" where nvl(dr,0)=0 and "+pk+"='"+value+"'";
+			 
+			 List<String> pksList = (List)this.qry.executeQuery(sql, new ColumnListProcessor());
+			 
+			 String[] names=pksList.toArray(new String[pksList.size()]);
+			 
+			 Map<String,String> rets = new HashMap();
+			 
+			 rets.put(value, names[0]);
+			 
+			 return rets;
+			 
+		}
+
+		return null;
+	}
 
 	@Override
 	public List<Map<String, Object>> getRefDataList(String pk_group,String cond, String voclass, String entityname, String field,int startline, int count, int pagenum) throws BusinessException {
@@ -2631,5 +2696,25 @@ public class MobileApproveServiceImpl implements IMobileApproveService {
 		  }
 		
 		
+	}
+
+
+	@Override
+	public List<Map<String, Object>> queryPreOrderInfo(String pk_group,String user, String cond, int startline, int count, int pagenum) throws BusinessException {
+		// TODO 自动生成的方法存根
+		
+		BillQuery query=new PreOrderExecQuery();
+		
+		query.setPk_group(pk_group);
+		query.setCuserid(user);
+		if("nvl".equals(cond)){
+			query.setCondition(null);
+		}else{
+			query.setCondition(cond);
+		}
+		
+		List<Map<String, Object>> list = PaginationQueryFacade.getInstance().query(query,startline,count,pagenum);
+		
+		return list;
 	}
 }

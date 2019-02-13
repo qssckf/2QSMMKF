@@ -6,12 +6,18 @@ package nc.qs.sc.bill.data.access;
 /*     */ import java.util.LinkedHashMap;
 /*     */ import java.util.List;
 /*     */ import java.util.Map;
+
+import nc.bs.framework.common.NCLocator;
+
+import nc.itf.so.qs.appinterface.MobileApprove.IMobileApproveService;
 /*     */ import nc.ui.bd.ref.AbstractRefModel;
 /*     */ import nc.ui.pub.beans.constenum.DefaultConstEnum;
+
 /*     */ import nc.vo.pub.ISuperVO;
 /*     */ import nc.vo.pub.bill.BillTabVO;
 /*     */ import nc.vo.pub.bill.server.BillVO;
-/*     */ import nc.vo.pub.bill.server.IBillItemMeta;
+import nc.vo.pub.bill.server.IBillItemMeta;
+import nc.vo.pubapp.pattern.exception.ExceptionUtils;
 /*     */ 
 /*     */ 
 /*     */ 
@@ -20,6 +26,7 @@ package nc.qs.sc.bill.data.access;
 /*  20 */   private static BillAccessUtil instance = null;
 /*  21 */   private Map<String, AbstractRefModel> refMap = new HashMap();
 /*     */   
+			private IMobileApproveService qryService;
 /*     */ 
 /*     */   private BillAccessUtil() {}
 /*     */   
@@ -30,16 +37,25 @@ package nc.qs.sc.bill.data.access;
 /*     */     }
 /*  31 */     return instance;
 /*     */   }
+
+			private IMobileApproveService getQueryService(){
+				if(this.qryService==null){
+					this.qryService=NCLocator.getInstance().lookup(IMobileApproveService.class);
+				}
+				
+				return this.qryService;
+			}
+			
 /*     */   
 /*     */ 
-/*     */   public List<Map<String, Object>> getTabDataMap(BillVO billVO, BillTabVO tabVO, ISuperVO[] vos)
+/*     */   public List<Map<String, Object>> getTabDataMap(BillVO billVO, BillTabVO tabVO, ISuperVO[] vos,String billtype)
 /*     */   {
 /*  37 */     if (vos == null) {
 /*  38 */       return null;
 /*     */     }
 /*  40 */     List<Map<String, Object>> list = new ArrayList();
 /*  41 */     for (int i = 0; i < vos.length; i++) {
-/*  42 */       list.add(getTabDataMap(billVO, tabVO, vos[i]));
+/*  42 */       list.add(getTabDataMap(billVO, tabVO, vos[i],billtype));
 /*     */     }
 /*     */     
 /*  45 */     return list;
@@ -49,7 +65,7 @@ package nc.qs.sc.bill.data.access;
 /*     */ 
 /*     */ 
 /*     */ 
-/*     */   public Map<String, Object> getTabDataMap(BillVO billVO, BillTabVO tabVO, ISuperVO vo)
+/*     */   public Map<String, Object> getTabDataMap(BillVO billVO, BillTabVO tabVO, ISuperVO vo,String billtype)
 /*     */   {
 /*  54 */     List<Map> recordList = new ArrayList();
 /*  55 */     Map<String, Object> recordMap = new LinkedHashMap();
@@ -83,6 +99,85 @@ package nc.qs.sc.bill.data.access;
 /*  84 */             value = refValue.getName();
 /*     */           }
 /*     */           break;
+
+case 16:
+	if(billtype.indexOf("38")==0){
+		if("vdef1".equals(key)){
+			if(value != null){
+				try{
+					Map<String,String> namemap=this.getQueryService().getRefName("nc.vo.bd.cust.CustSupplierVO", "uap.custsupplier", value.toString());
+					
+					if(namemap!=null && namemap.containsKey(value)){
+						
+						pk = value;
+						value = namemap.get(value);
+						
+					}
+					
+				}catch(Exception e){
+					ExceptionUtils.wrappBusinessException(e.getMessage());
+				}
+				
+				
+			}
+		}else if("vdef3".equals(key)){
+			if(value != null){
+				try{
+					Map<String,String> namemap=this.getQueryService().getRefName("nc.vo.bd.defdoc.DefdocVO", "uap.Defdoc-XSLX01", value.toString());
+					
+					if(namemap!=null && namemap.containsKey(value)){
+						
+						pk = value;
+						value = namemap.get(value);
+						
+					}
+					
+				}catch(Exception e){
+					ExceptionUtils.wrappBusinessException(e.getMessage());
+				}
+				
+			}
+		}else if("vbdef3".equals(key)){
+			if(value != null){
+				try{
+					Map<String,String> namemap=this.getQueryService().getRefName("nc.vo.bd.defdoc.DefdocVO", "uap.Defdoc-QSSC001", value.toString());
+					
+					if(namemap!=null && namemap.containsKey(value)){
+						
+						pk = value;
+						value = namemap.get(value);
+						
+					}
+					
+				}catch(Exception e){
+					ExceptionUtils.wrappBusinessException(e.getMessage());
+				}
+				
+			}
+		}
+	}
+	break;
+case 0:
+	if(billtype.indexOf("38")==0){
+		if("vfree1".equals(key)){
+			if(value != null){
+				try{
+					Map<String,String> namemap=this.getQueryService().getRefName("nc.vo.bd.defdoc.DefdocVO", "uap.Defdoc-SCM01", value.toString());
+					
+					if(namemap!=null && namemap.containsKey(value)){
+						
+						pk = value;
+						value = namemap.get(value);
+						
+					}
+					
+				}catch(Exception e){
+					ExceptionUtils.wrappBusinessException(e.getMessage());
+				}
+			}
+		}
+	}
+break;
 /*     */         }
 /*     */         
 /*  89 */         map.put(billItemMeta.getKey() + "itemShowName", billItemMeta.getCaption());
@@ -111,7 +206,7 @@ package nc.qs.sc.bill.data.access;
 /* 111 */         BillTabVO billTabVO = (BillTabVO)iterator.next();
 /* 112 */         grpMap.put("tabCode", billTabVO.getTabcode());
 /* 113 */         grpMap.put("tabName", billTabVO.getTabname());
-/* 114 */         grpMap.put("tabContent", getTabDataMap(billVO, billTabVO, vo));
+/* 114 */         grpMap.put("tabContent", getTabDataMap(billVO, billTabVO, vo,billtype));
 /*     */         
 /* 116 */         grpList.add(grpMap);
 /*     */       }

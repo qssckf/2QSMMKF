@@ -1782,9 +1782,9 @@ public class MobileApproveServiceImpl implements IMobileApproveService {
 				
 				if(cusdjmap.containsKey(hhfl)){
 					
-					p=p.add(NumMap.get(hhfl).multiply(cusdjmap.get(hhfl)).multiply(new UFDouble(num)));
+					p=p.add(NumMap.get(hhfl).multiply(cusdjmap.get(hhfl)));
 					
-					String formula="[Num]"+num+"*[HfPrice]"+NumMap.get(hhfl)+"*[CusDj]"+cusdjmap.get(hhfl);
+					String formula="[HfPrice]"+NumMap.get(hhfl)+"*[CusDj]"+cusdjmap.get(hhfl);
 					
 					memo.add(formula);
 					
@@ -1792,7 +1792,7 @@ public class MobileApproveServiceImpl implements IMobileApproveService {
 					
 					p=p.add(NumMap.get(hhfl).multiply(UFDouble.ZERO_DBL).multiply(new UFDouble(num)));
 					
-					String formula="[Num]"+num+"*[HfPrice]"+NumMap.get(hhfl)+"*[CusDj]0";
+					String formula="[HfPrice]"+NumMap.get(hhfl)+"*[CusDj]0";
 					
 					memo.add(formula);
 					

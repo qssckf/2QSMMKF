@@ -638,7 +638,7 @@ public class PlanBillServiceImpl implements IPlanBillSerive{
 		sql=sql+" left join bd_material cmar on b.cmaterialid=cmar.pk_material";
 		sql=sql+" left join bd_bom bbom on b.vitemversion=bbom.cbomid";
 		sql=sql+" left join bd_measdoc unit on b.cmeasureid=unit.pk_measdoc";
-		sql=sql+" where a.pk_org='"+pk_org+"' and  a.dr=0 and b.dr=0 and a.cbomid=(select cbomid from bd_bom where hcmaterialid='"+pk_materail+"' and dr=0 and hvdef1='Y')";
+		sql=sql+" where a.pk_org='"+pk_org+"' and  a.dr=0 and b.dr=0 and a.cbomid=(select cbomid from bd_bom where hcmaterialid='"+pk_materail+"' and dr=0 and hvdef1='Y' and pk_org='"+pk_org+"')";
 		
 		IRowSet row=this.getDataAcc().query(sql);
 		

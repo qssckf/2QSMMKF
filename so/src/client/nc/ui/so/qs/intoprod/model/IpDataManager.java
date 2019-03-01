@@ -81,7 +81,7 @@ public class IpDataManager implements IModelDataManager,IQueryAndRefreshManager{
 		
 		IntoProdDetailVO[] IpVos = null;
 		
-		String wheresql=createCondition(this.sqlWhere);
+		String wheresql=createCondition(whereSQLOnly);
 		
 		this.sqlWhere=wheresql;
 		

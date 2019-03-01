@@ -229,6 +229,7 @@ public class MobileApproveServiceImpl implements IMobileApproveService {
 		headNotNull.add("cdeptvid");
 		headNotNull.add("cemployeeid");
 		headNotNull.add("vdef1");
+		headNotNull.add("vdef3");
 		
 		List<String> bodyNotNull=new ArrayList<String>();
 		
@@ -297,7 +298,7 @@ public class MobileApproveServiceImpl implements IMobileApproveService {
 		bodyNotNull.add("ntaxprice");
 		bodyNotNull.add("ntaxrate");
 		bodyNotNull.add("vchangerate");
-		bodyNotNull.add("vfree1");
+//		bodyNotNull.add("vfree1");
 		bodyNotNull.add("vqtunitrate");
 
 		if(StringUtil.isEmpty(pk_group)||StringUtil.isEmpty(userid)||StringUtil.isEmpty(billtype)){

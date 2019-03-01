@@ -19,7 +19,7 @@ public class SetRdBillStatusByPMORule implements IRule<RdPorductDetailVO>{
 		for (int i = 0; i < vos.length; i++) {
 			
 			vos[i].setBillstatus(2);
-			vos[i].setProcesser(InvocationInfoProxy.getInstance().getUserId());
+//			vos[i].setProcesser(InvocationInfoProxy.getInstance().getUserId());
 		}
 		
 	}

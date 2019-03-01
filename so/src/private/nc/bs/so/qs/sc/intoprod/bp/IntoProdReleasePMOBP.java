@@ -1,6 +1,8 @@
 package nc.bs.so.qs.sc.intoprod.bp;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -88,12 +90,22 @@ public class IntoProdReleasePMOBP {
 			
 			try{
 				
+				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+				Calendar c = Calendar.getInstance();
+				String CDATE=sf.format(c.getTime());
+				
+				String vbatchcode=CDATE.substring(0, 4)+CDATE.substring(5, 7)+CDATE.substring(8, 10);
+				
+				
 				IMaterialPubService service = (IMaterialPubService)NCLocator.getInstance().lookup(IMaterialPubService.class);
 				IDeptPubService deptservice =(IDeptPubService)NCLocator.getInstance().lookup(IDeptPubService.class);
 				
 				PMOAggVO aggpmo=new PMOAggVO();
 				
 				IntoProdDetailVO rd=objs[0];
+				
+				vbatchcode=vbatchcode+rd.getDef2();
+				
 				
 				PMOHeadVO parent=new PMOHeadVO();
 				
@@ -167,18 +179,20 @@ public class IntoProdReleasePMOBP {
 						item.setNzdbastnum(UFDouble.ZERO_DBL);
 						item.setNinnum(UFDouble.ZERO_DBL);
 						item.setNinastnum(UFDouble.ZERO_DBL);
-						item.setVdef2(obj.getEndcustomer());
-						item.setVdef3(obj.getPk_machine());
-						item.setVdef4(obj.getSplitstofftype());
-						item.setVdef5(obj.getSilkwide()==null?null:obj.getSilkwide().toString());
-						item.setVdef6(obj.getElongation()==null?null:obj.getElongation().toString());
-						item.setVdef7(obj.getTension()==null?null:obj.getTension().toString());
-						item.setVdef8(obj.getSpacer()==null?null:obj.getSpacer().toString());
-						item.setVdef9(obj.getOtherproduction());
-						item.setVdef10(obj.getTagline());
-						item.setVdef11(obj.getWidth()==null?null:obj.getWidth().toString());
-						item.setVdef12(obj.getLength()==null?null:obj.getLength().toString());
-						item.setVdef13(obj.getLatitudedensity()==null?null:obj.getLatitudedensity().toString());
+						item.setVbatchcode(vbatchcode);
+						item.setVdef1(obj.getEndcustomer());
+						item.setVdef2(obj.getPk_machine());
+						item.setVdef3(obj.getSplitstofftype());
+						item.setVdef4(obj.getSilkwide()==null?null:obj.getSilkwide().toString());
+						item.setVdef5(obj.getElongation()==null?null:obj.getElongation().toString());
+						item.setVdef6(obj.getTension()==null?null:obj.getTension().toString());
+						item.setVdef7(obj.getSpacer()==null?null:obj.getSpacer().toString());
+						item.setVdef8(obj.getOtherproduction());
+						item.setVdef9(obj.getTagline());
+						item.setVdef10(obj.getWidth()==null?null:obj.getWidth().toString());
+						item.setVdef11(obj.getLength()==null?null:obj.getLength().toString());
+						item.setVdef12(obj.getLatitudedensity()==null?null:obj.getLatitudedensity().toString());
+						item.setVdef13(obj.getExpandunit());
 						item.setVsrctype("QS01");
 						item.setVsrcid(obj.getVsrcplanbid());
 						item.setVsrcbid(obj.getPk_itpd());
@@ -239,6 +253,7 @@ public class IntoProdReleasePMOBP {
 							item.setTrequiredate(obj.getDef1()==null?null:new UFDate(obj.getDef1()));
 							item.setBurgent(UFBoolean.FALSE);
 							item.setFprintstatus(1);
+							item.setVbatchcode(vbatchcode);
 							item.setCvendorid(obj.getCvendorid());
 							item.setCproductorid(obj.getCproductorid());
 							item.setCprojectid(obj.getCprojectid());
@@ -253,18 +268,19 @@ public class IntoProdReleasePMOBP {
 							item.setNzdbastnum(UFDouble.ZERO_DBL);
 							item.setNinnum(UFDouble.ZERO_DBL);
 							item.setNinastnum(UFDouble.ZERO_DBL);
-							item.setVdef2(obj.getEndcustomer());
-							item.setVdef3(obj.getPk_machine());
-							item.setVdef4(obj.getSplitstofftype());
-							item.setVdef5(obj.getSilkwide()==null?null:obj.getSilkwide().toString());
-							item.setVdef6(obj.getElongation()==null?null:obj.getElongation().toString());
-							item.setVdef7(obj.getTension()==null?null:obj.getTension().toString());
-							item.setVdef8(obj.getSpacer()==null?null:obj.getSpacer().toString());
-							item.setVdef9(obj.getOtherproduction());
-							item.setVdef10(obj.getTagline());
-							item.setVdef11(obj.getWidth()==null?null:obj.getWidth().toString());
-							item.setVdef12(obj.getLength()==null?null:obj.getLength().toString());
-							item.setVdef13(obj.getLatitudedensity()==null?null:obj.getLatitudedensity().toString());
+							item.setVdef1(obj.getEndcustomer());
+							item.setVdef2(obj.getPk_machine());
+							item.setVdef3(obj.getSplitstofftype());
+							item.setVdef4(obj.getSilkwide()==null?null:obj.getSilkwide().toString());
+							item.setVdef5(obj.getElongation()==null?null:obj.getElongation().toString());
+							item.setVdef6(obj.getTension()==null?null:obj.getTension().toString());
+							item.setVdef7(obj.getSpacer()==null?null:obj.getSpacer().toString());
+							item.setVdef8(obj.getOtherproduction());
+							item.setVdef9(obj.getTagline());
+							item.setVdef10(obj.getWidth()==null?null:obj.getWidth().toString());
+							item.setVdef11(obj.getLength()==null?null:obj.getLength().toString());
+							item.setVdef12(obj.getLatitudedensity()==null?null:obj.getLatitudedensity().toString());
+							item.setVdef13(obj.getExpandunit());
 							item.setVsrctype("QS01");
 							item.setVsrcid(obj.getVsrcplanbid());
 							item.setVsrcbid(obj.getPk_itpd());

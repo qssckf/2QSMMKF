@@ -39,7 +39,7 @@ package nc.vo.so.qs.appinterface.query;
 /*     */   
 /*     */   protected String getBaseSql()
 /*     */   {
-/*  42 */     return "select pk_checkflow,senddate from pub_workflownote where actiontype like 'Z%' and checkman='#checkman#'  and workflow_type in #workflowtype# and approvestatus=#approvestatus# and pk_group ='#pk_group#'  and senddate<'#senddate#' order by senddate desc";
+/*  42 */     return "select pk_checkflow,senddate from pub_workflownote where (actiontype like 'Z%' or actiontype='MAKEBILL') and checkman='#checkman#'  and workflow_type in #workflowtype# and approvestatus=#approvestatus# and pk_group ='#pk_group#'  and senddate<'#senddate#' order by senddate desc";
 /*     */   }
 /*     */   
 /*     */ 

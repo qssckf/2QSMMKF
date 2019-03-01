@@ -88,9 +88,7 @@ import nc.vo.pubapp.pattern.exception.ExceptionUtils;
 /*     */           {
 /*  74 */             value = ((DefaultConstEnum)value).getName();
 /*     */           }
-/*     */           
-/*     */ 
-/*     */ 
+
 /*     */           break;
 /*     */         case 5: 
 /*  81 */           if (value != null) {
@@ -102,6 +100,7 @@ import nc.vo.pubapp.pattern.exception.ExceptionUtils;
 
 case 16:
 	if(billtype.indexOf("38")==0){
+		
 		if("vdef1".equals(key)){
 			if(value != null){
 				try{
@@ -120,6 +119,7 @@ case 16:
 				
 				
 			}
+			
 		}else if("vdef3".equals(key)){
 			if(value != null){
 				try{
@@ -156,6 +156,7 @@ case 16:
 			}
 		}
 	}
+	
 	break;
 case 0:
 	if(billtype.indexOf("38")==0){
@@ -182,7 +183,12 @@ break;
 /*     */         
 /*  89 */         map.put(billItemMeta.getKey() + "itemShowName", billItemMeta.getCaption());
 /*     */         
-/*  91 */         map.put(billItemMeta.getKey(), value);
+				  if(value==null){
+					  map.put(billItemMeta.getKey(), "Пе");
+				  }else{
+					  map.put(billItemMeta.getKey(), value);
+				  }
+/*  91 */         
 /*  92 */         if (pk != null)
 /*     */         {
 /*  94 */           map.put(billItemMeta.getKey() + "_ID", pk);

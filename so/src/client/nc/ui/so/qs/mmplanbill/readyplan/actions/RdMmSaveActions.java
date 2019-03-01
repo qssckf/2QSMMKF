@@ -68,7 +68,7 @@ public class RdMmSaveActions extends SaveAction{
 				
 				((RdMmModel)this.getModel()).getChModel().directlyUpdate(returnObj);
 				
-				SFClientUtil.closeFuncWindow("4006200203");
+//				SFClientUtil.closeFuncWindow("4006200203");
 				
 				
 			}else{
@@ -105,7 +105,7 @@ public class RdMmSaveActions extends SaveAction{
 				
 				((RdMmModel)this.getModel()).getChModel().directlyAdd(returnObj);
 				
-				SFClientUtil.closeFuncWindow("4006200203");
+//				SFClientUtil.closeFuncWindow("4006200203");
 				
 				
 			}else{

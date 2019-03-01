@@ -42,6 +42,7 @@ public class RewriteBillUtil {
 	      mapping.setCsrcidKey("csrcid");
 	      mapping.setCsrcbidKey("csrcbid");
 	      mapping.setNnumKey("nnum");
+	      mapping.setNnum2Key("nastnum");
 	      mapping.setSrcTSKey("srcts");
 	      
 	      BillRewriter tool = new BillRewriter(mapping);

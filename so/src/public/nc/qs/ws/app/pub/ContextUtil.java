@@ -9,9 +9,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import antlr.collections.List;
-import com.yonyou.uap.um.json.MAJSONObject;
 
 import nc.qs.ws.app.exception.AppRuntimeException;
+import nc.um.json.util.MAJSONObject;
 import nc.vo.pm.util.StringUtil;
 
 public class ContextUtil {

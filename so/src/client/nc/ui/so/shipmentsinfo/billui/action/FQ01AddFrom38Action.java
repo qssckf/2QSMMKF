@@ -10,10 +10,13 @@ package nc.ui.so.shipmentsinfo.billui.action;
 /*    */ import nc.ui.uif2.UIState;
 /*    */ import nc.ui.uif2.model.AbstractAppModel;
 /*    */ import nc.vo.jcom.lang.StringUtil;
+import nc.vo.pub.lang.UFDouble;
+import nc.vo.pubapp.calculator.HslParseUtil;
 /*    */ import nc.vo.scmpub.res.billtype.SOBillType;
 ///*    */ import nc.vo.so.m30.entity.SaleOrderVO;
 		 import nc.vo.so.qs.sc.AggShipmentsVO;
-/*    */ import nc.vo.uif2.LoginContext;
+import nc.vo.so.qs.sc.ShipmentsBVO;
+import nc.vo.uif2.LoginContext;
 /*    */ 
 /*    */ 
 /*    */ 
@@ -32,6 +35,17 @@ package nc.ui.so.shipmentsinfo.billui.action;
 /* 32 */     if (PfUtilClient.isCloseOK()) {
 ///* 33 */       SaleOrderVO[] vos = (SaleOrderVO[])PfUtilClient.getRetVos();
 /* 34 */			AggShipmentsVO[] vos = (AggShipmentsVO[])PfUtilClient.getRetVos();
+					for(AggShipmentsVO vo:vos){
+						ShipmentsBVO[] bvos=(ShipmentsBVO[]) vo.getChildren(ShipmentsBVO.class);
+						
+						for(ShipmentsBVO bvo:bvos){
+							
+							String hsl=bvo.getVchangerate();
+							bvo.setNastnum(HslParseUtil.hslDivUFDouble(hsl, bvo.getNnum()));
+
+							
+						}
+					}
 /*    */       
 /* 36 */       getTransferViewProcessor().processBillTransfer(vos);
 /*    */     }

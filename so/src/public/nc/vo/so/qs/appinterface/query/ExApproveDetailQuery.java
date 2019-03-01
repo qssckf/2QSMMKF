@@ -48,7 +48,7 @@ import nc.vo.wfengine.pub.WfTaskOrInstanceStatus;
  {
    private static final String BILLTYPE = "#billtype#";
    private static final String BILLID = "#billid#";
-   private final String SQL = "select pk_checkflow from pub_workflownote where pk_billtype='#billtype#' and billversionpk='#billid#' and approvestatus in (" + WfTaskOrInstanceStatus.Finished.getIntValue() + "," + WfTaskOrInstanceStatus.Started.getIntValue() + ") and actiontype like '" + "Z" + "%'";
+   private final String SQL = "select pk_checkflow from pub_workflownote where pk_billtype='#billtype#' and billversionpk='#billid#' and approvestatus in (" + WfTaskOrInstanceStatus.Inefficient.getIntValue() + ","+ WfTaskOrInstanceStatus.Finished.getIntValue() + "," + WfTaskOrInstanceStatus.Started.getIntValue() + ") and actiontype like '" + "Z" + "%'";
    
  
  

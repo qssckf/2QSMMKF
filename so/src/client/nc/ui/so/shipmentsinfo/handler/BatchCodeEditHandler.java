@@ -9,7 +9,8 @@ package nc.ui.so.shipmentsinfo.handler;
 /*     */ import nc.ui.pubapp.uif2app.event.card.CardBodyAfterEditEvent;
 /*     */ import nc.ui.pubapp.uif2app.event.card.CardBodyBeforeEditEvent;
 ///*     */ import nc.ui.so.m38.billui.view.PreOrderEditor;
-		  import nc.ui.pubapp.uif2app.view.ShowUpableBillForm;
+		    import nc.ui.so.shipmentsinfo.billui.view.ShipmentsInfoEditor;
+//		  import nc.ui.pubapp.uif2app.view.ShowUpableBillForm;
 /*     */ import nc.ui.so.pub.keyvalue.CardKeyValue;
 /*     */ import nc.ui.uif2.model.AbstractAppModel;
 /*     */ import nc.vo.bd.material.stock.MaterialStockVO;
@@ -29,7 +30,7 @@ package nc.ui.so.shipmentsinfo.handler;
 /*     */ 
 /*     */ public class BatchCodeEditHandler
 /*     */ {
-/*     */   private ShowUpableBillForm editor;
+/*     */   private ShipmentsInfoEditor editor;
 /*     */   
 /*     */   public BatchCodeEditHandler() {}
 /*     */   
@@ -112,11 +113,11 @@ package nc.ui.so.shipmentsinfo.handler;
 /* 111 */     batchref.setMultiSelectedEnabled(false);
 /*     */   }
 /*     */   
-/*     */   public ShowUpableBillForm getEditor() {
+/*     */   public ShipmentsInfoEditor getEditor() {
 /* 115 */     return this.editor;
 /*     */   }
 /*     */   
-/*     */   public void setEditor(ShowUpableBillForm editor) {
+/*     */   public void setEditor(ShipmentsInfoEditor editor) {
 /* 119 */     this.editor = editor;
 /*     */   }
 /*     */ }

@@ -3,7 +3,8 @@ package nc.ui.so.shipmentsinfo.ace.handler;
 import nc.ui.pub.bill.BillCardPanel;
 import nc.ui.pubapp.uif2app.event.IAppEventHandler;
 import nc.ui.pubapp.uif2app.event.card.CardBodyAfterEditEvent;
-import nc.ui.pubapp.uif2app.view.ShowUpableBillForm;
+import nc.ui.so.shipmentsinfo.billui.view.ShipmentsInfoEditor;
+//import nc.ui.pubapp.uif2app.view.ShowUpableBillForm;
 //import nc.ui.so.m38.billui.editor.bodyevent.AstNumEditHandler;
 import nc.ui.so.shipmentsinfo.handler.AstNumEditHandler;
 //import nc.ui.so.m38.billui.editor.bodyevent.AstUnitEditHandler;
@@ -58,11 +59,11 @@ import nc.vo.so.qs.sc.ShipmentsBVO;
  * @author duy
  */
 public class AceBodyAfterEditHandler implements IAppEventHandler<CardBodyAfterEditEvent> {
-	private ShowUpableBillForm editor;
+	private ShipmentsInfoEditor editor;
 	
 	public AceBodyAfterEditHandler() {}
 	
-	public ShowUpableBillForm getEditor()
+	public ShipmentsInfoEditor getEditor()
 	{
 	  return this.editor;
 	}
@@ -182,7 +183,7 @@ public class AceBodyAfterEditHandler implements IAppEventHandler<CardBodyAfterEd
        
     }
     
-    public void setEditor(ShowUpableBillForm editor)
+    public void setEditor(ShipmentsInfoEditor editor)
     {
       this.editor = editor;
     }

@@ -40,8 +40,8 @@
 	</bean>
 		
 <!-- 模板容器，负责对模板的统一装载 -->
-    <bean id="templateContainer" class="nc.ui.pubapp.uif2app.view.TemplateContainer">
-        <property name="context" ref="context" />
+	<bean id="templateContainer" class="nc.ui.uif2.editor.TemplateContainer" init-method="load">        
+	<property name="context" ref="context" />
         <property name="nodeKeies">
         	<list>
         		<value>bt</value>
@@ -95,11 +95,17 @@
 		</property>
 	</bean>
 	
-    <bean id="billFormEditor" class="nc.ui.pubapp.uif2app.view.ShowUpableBillForm" init-method="initUI">
+    <bean id="billFormEditor" class="nc.ui.so.shipmentsinfo.billui.view.ShipmentsInfoEditor" init-method="initUI">
         <property name="model" ref="manageAppModel"></property>
         <property name="templateContainer" ref="templateContainer" />
-        <property name="showOrgPanel" value="true" />
+       <!-- <property name="showOrgPanel" value="true" /> -->
         <property name="blankChildrenFilter" ref="blankChildrenFilter" />
+        
+        <property name="clearHyperlink">
+      		<list>
+        		<value>vbillcode</value>
+      		</list>
+    	</property>
 		<!-- 是否自动增行 -->
         <property name="autoAddLine" value="true" />
 		<!-- 表体行操作按钮注册，与表体右键菜单保持一致 -->

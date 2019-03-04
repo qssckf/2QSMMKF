@@ -13,7 +13,8 @@ import nc.ui.so.shipmentsinfo.handler.SendStordocEditHandler;
 import nc.ui.so.shipmentsinfo.handler.TrafficOrgEditHandler;
 import nc.ui.so.shipmentsinfo.handler.BatchCodeEditHandler;
 import nc.ui.so.shipmentsinfo.handler.ReceiveAddressEditHandler;
-import nc.ui.pubapp.uif2app.view.ShowUpableBillForm;
+//import nc.ui.pubapp.uif2app.view.ShowUpableBillForm;
+import nc.ui.so.shipmentsinfo.billui.view.ShipmentsInfoEditor;
 
 import nc.vo.ml.NCLangRes4VoTransl;
 import nc.vo.pubapp.pattern.exception.ExceptionUtils;
@@ -28,11 +29,11 @@ import nc.vo.so.qs.sc.ShipmentsBVO;
  * @author duy
  */
 public class AceBodyBeforeEditHandler implements IAppEventHandler<CardBodyBeforeEditEvent> {
-	private ShowUpableBillForm editor;
+	private ShipmentsInfoEditor editor;
 	
 	public AceBodyBeforeEditHandler() {}
 	
-	public ShowUpableBillForm getEditor()
+	public ShipmentsInfoEditor getEditor()
 	{
 	  return this.editor;
 	}
@@ -96,7 +97,7 @@ public class AceBodyBeforeEditHandler implements IAppEventHandler<CardBodyBefore
     	
     }
 
-    public void setEditor(ShowUpableBillForm editor) {
+    public void setEditor(ShipmentsInfoEditor editor) {
     	this.editor = editor;
     }
 }

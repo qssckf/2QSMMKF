@@ -90,7 +90,7 @@ public class PreOrderExecQuery extends BillQuery{
 			item.put("mat", row.getString(2));
 			item.put("spec", row.getString(3));
 			item.put("kz", row.getString(4));
-			item.put("pk_org", row.getString(5));
+			item.put("pk_org", row.getString(5)==null?'Пе':row.getString(5));
 			item.put("prenum", row.getString(6));
 			item.put("fhnum", row.getString(7));
 			item.put("prenastnum", row.getString(8));

@@ -1253,6 +1253,30 @@ public class MobileApproveServiceImpl implements IMobileApproveService {
 		
 		PreOrderVO pre=ConvertJson2VO(prejson,billstatus);
 		
+		PreOrderBVO[] bvos=(PreOrderBVO[]) pre.getChildren(PreOrderBVO.class);
+		PreOrderHVO hvo=pre.getParentVO();
+		
+		for(PreOrderBVO bvo:bvos){
+			
+			if (bvo.getVbdef13()!=null && (new UFDouble(bvo.getVbdef13()).toDouble())!=0){
+				
+				try{
+					Map<String, Object> price=this.queryHfPrice(pk_group, userid, hvo.getPk_org(), bvo.getCmaterialid(), bvo.getVbdef12(), hvo.getCcustomerid(), bvo.getNnum().toDouble());
+					if(price.containsKey("hfprice") && price.get("hfprice")!=null){
+					
+					Double price1=(Double) price.get("hfprice");
+					
+					if(Math.abs((new UFDouble(bvo.getVbdef13()).toDouble()))!=price1){
+						throw new BusinessException("行号"+bvo.getCrowno()+",信息变更导致混合料价不正确，请重新计算！");
+					}
+				}
+				}catch(Exception e){
+					throw new BusinessException("行号"+bvo.getCrowno()+",信息变更导致混合料价计算过程错误，错误信息："+e.getMessage()+"！"); 
+				}
+				
+			}
+		}
+		
 		
 		
 		PFlowContext pfcontext=new PFlowContext();
@@ -1686,7 +1710,7 @@ public class MobileApproveServiceImpl implements IMobileApproveService {
 			return prevo;
 			
 		}catch(Exception e){
-			 throw new BusinessException("错误的单据实体类");
+			 throw new BusinessException("错误的单据实体类:"+e.getMessage());
 		}
 		
 		
@@ -1819,7 +1843,7 @@ public class MobileApproveServiceImpl implements IMobileApproveService {
 				}
 			}
 			
-			retmap.put("hfprice", hfprice);
+			retmap.put("hfprice", Math.abs(hfprice.toDouble()));
 			retmap.put("formula", "("+hfformula+")*"+Oformula);
 					
 			

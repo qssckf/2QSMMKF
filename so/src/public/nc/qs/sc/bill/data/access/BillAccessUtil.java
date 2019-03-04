@@ -140,7 +140,7 @@ case 16:
 		}else if("vbdef3".equals(key)){
 			if(value != null){
 				try{
-					Map<String,String> namemap=this.getQueryService().getRefName("nc.vo.bd.defdoc.DefdocVO", "uap.Defdoc-QSSC001", value.toString());
+					Map<String,String> namemap=this.getQueryService().getRefName("nc.vo.bd.defdoc.DefdocVO", "uap.Defdoc-QSSC01", value.toString());
 					
 					if(namemap!=null && namemap.containsKey(value)){
 						

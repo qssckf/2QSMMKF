@@ -27,12 +27,12 @@ public abstract class AbstractPreOrderQuery extends BillQuery{
 	    
 		if (!StringUtil.isEmptyWithTrim(getCondition()))
 	    {
-	      String sql = "select so_preorder.cpreorderid,so_preorder.dbilldate from so_preorder left join so_preorder_b on so_preorder.cpreorderid=so_preorder_b.cpreorderid where so_preorder.dr=0 and so_preorder_b.dr=0  and so_preorder.pk_group='#pk_group#' and so_preorder.billmaker='#billmaker#' and substr(so_preorder.dmakedate,0,10)<='#date#' and ("+this.getCondition()+") group by so_preorder.fstatusflag,so_preorder.cpreorderid,so_preorder.dbilldate order by so_preorder.fstatusflag,so_preorder.cpreorderid,so_preorder.dbilldate desc";
+	      String sql = "select so_preorder.cpreorderid,so_preorder.vbillcode,so_preorder.dbilldate from so_preorder left join so_preorder_b on so_preorder.cpreorderid=so_preorder_b.cpreorderid where so_preorder.fstatusflag=1 and so_preorder.dr=0 and so_preorder_b.dr=0  and so_preorder.pk_group='#pk_group#' and so_preorder.billmaker='#billmaker#' and substr(so_preorder.dmakedate,0,10)<='#date#' and ("+this.getCondition()+") group by so_preorder.cpreorderid,so_preorder.vbillcode,so_preorder.dbilldate order by so_preorder.vbillcode desc,so_preorder.dbilldate desc";
 	
 	      return sql;
 	    }
 		
-	    return "select so_preorder.cpreorderid,so_preorder.dbilldate from so_preorder left join so_preorder_b on so_preorder.cpreorderid=so_preorder_b.cpreorderid where so_preorder.dr=0 and so_preorder_b.dr=0  and so_preorder.pk_group='#pk_group#' and so_preorder.billmaker='#billmaker#' and substr(so_preorder.dmakedate,0,10)<='#date#' group by so_preorder.fstatusflag,so_preorder.cpreorderid,so_preorder.dbilldate order by so_preorder.fstatusflag,so_preorder.cpreorderid,so_preorder.dbilldate desc";
+	    return "select so_preorder.cpreorderid,so_preorder.vbillcode,so_preorder.dbilldate from so_preorder left join so_preorder_b on so_preorder.cpreorderid=so_preorder_b.cpreorderid where so_preorder.fstatusflag=1 and so_preorder.dr=0 and so_preorder_b.dr=0  and so_preorder.pk_group='#pk_group#' and so_preorder.billmaker='#billmaker#' and substr(so_preorder.dmakedate,0,10)<='#date#' group by so_preorder.cpreorderid,so_preorder.vbillcode,so_preorder.dbilldate order by so_preorder.vbillcode desc,so_preorder.dbilldate desc";
 	}
 	
 

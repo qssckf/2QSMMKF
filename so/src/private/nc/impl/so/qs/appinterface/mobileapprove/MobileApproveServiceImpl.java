@@ -1843,7 +1843,7 @@ public class MobileApproveServiceImpl implements IMobileApproveService {
 				}
 			}
 			
-			retmap.put("hfprice", Math.abs(hfprice.toDouble()));
+			retmap.put("hfprice", Math.round(hfprice.toDouble()));
 			retmap.put("formula", "("+hfformula+")*"+Oformula);
 					
 			

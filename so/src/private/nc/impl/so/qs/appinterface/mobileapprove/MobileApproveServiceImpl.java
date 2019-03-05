@@ -2698,7 +2698,24 @@ public class MobileApproveServiceImpl implements IMobileApproveService {
 					  PreOrderVO[] sovos=(PreOrderVO[])ret;
 					  
 					  if(sovos!=null && sovos.length==1){
+						  
+						  String pushUser="";			
+						  
+						  String sql="select checkman from pub_workflownote where billid='"+sovos[0].getParentVO().getCpreorderid()+"' and workflow_type in (2, 3, 6) and approvestatus=0";
+						  
+						  IRowSet row1=this.getDao().query(sql);
+						  
+						  while(row1.next()){
+							  
+							  if(pushUser == ""){
+								  pushUser=row1.getString(0);
+							  }else{
+								  pushUser = pushUser + "," + row1.getString(0);
+							  }
+						  }					  					 						
 						  retmsg.put("billid", sovos[0].getParentVO().getCpreorderid());
+						  
+						  retmsg.put("appresult", pushUser);
 					  }else{
 						  throw new BusinessException("返回数据错误，不能保存！");
 					  }
